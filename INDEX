@@ -1,0 +1,41 @@
+Functions:
+=========
+
+stepEdgeLCK        Detect step edges of an image by LCK detector
+stepEdgeLC2K       Detect step edges of an image by LC2K detector
+stepEdgeLLK        Detect step edges of an image by LLK detector
+stepEdgeLL2K       Detect step edges of an image by LL2K detector
+JPLLK_surface  	   Estimate regression surface by piecewise LCK smoothing
+diffLCK        	   Compute difference between two one-sided LCK estimators
+diffLC2K       	   Compute difference between two one-sided LC2K estimators
+diffLLK            Compute difference between two one-sided LLK estimators
+diffLL2K           Compute difference between two one-sided LL2K estimators
+dKQ            	   Compute d_KQ distance between two point sets
+stepEdgeParSelLCK  Select the parameter values in the LCK step edge detection 
+	       	   criterion using the bootstrap procedure
+stepEdgeParSelLC2K Select the parameter values in the LC2K step edge detection 
+	       	   criterion using the bootstrap procedure
+stepEdgeParSelLLK  Select the parameter values in the LLK step edge detection 
+	       	   criterion using the bootstrap procedure
+stepEdgeParSelLL2K Select the parameter values in the LL2K step edge detection 
+	       	   criterion using the bootstrap procedure
+modify1            Modify detected edges to make them thin
+modify2 	   Delete deceptive detected edges due to type-I error
+surfaceCluster     Image restoration using local pixel clustering
+roofDiff           Compute difference between two one-sided gradient estimators
+roofEdge	   Roof/Valley edge detector
+roofEdgeParSel     Select the parameter values in the roof/valley edge detection 
+	       	   criterion using the bootstrap procedure
+threeStage	   Image restoration based on edge detection
+threeStageParSel   Select the bandwidth parameter for the image restoration method
+		   implemented by the function threeStage
+
+Datasets:
+=======
+
+brain               Test image of brain
+circles             Test image of circles
+kid		    Test image of a kid taking test
+lenna	            Test image of Lena
+peppers 	    Test image of peppers
+sar		    Test image of synthetic apeuture radar image.

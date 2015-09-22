@@ -1,0 +1,9 @@
+useDynLib(DRIP)
+export(stepEdgeLCK, JPLLK_surface, diffLCK, diffLC2K, dKQ,
+       stepEdgeParSelLCK, stepEdgeParSelLC2K, diffLLK,
+       stepEdgeLC2K, stepEdgeLLK, stepEdgeParSelLLK,
+       diffLL2K, stepEdgeLL2K, stepEdgeParSelLL2K, modify1,
+       modify2, surfaceCluster, roofDiff, roofEdge, roofEdgeParSel, 
+       threeStage, threeStageParSel)
+import(readbitmap, caTools, graphics, stats)
+importFrom("grDevices", "gray")
