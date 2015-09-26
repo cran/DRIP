@@ -14,6 +14,8 @@ subroutine JP_LLK_fit(n, obsImg, bandwidth, fitted, resid, sigma)
 
   implicit none
 
+  integer :: i, j, n, itemp, i1, j1, k, bandwidth
+  
   double precision :: z(0:600, 0:600), z1(0:600, 0:600), sigma, &
        fitted(0:n, 0:n), resid(0:n, 0:n), temp, e1, e2, r00, &
        r20, bhat, chat, bb, ra, gradperp, fhat1, fhat2, ttemp1, fhat, &
@@ -22,8 +24,6 @@ subroutine JP_LLK_fit(n, obsImg, bandwidth, fitted, resid, sigma)
        rminus00, rminus10, rminus01, rminus11, rminus20, rminus02, &
        ZKminus, XZKminus, YZKminus, bhat1, bhat2, chat1, chat2, temp1, &
        temp2
-
-  integer :: i, j, n, itemp, i1, j1, k, bandwidth
 
   external :: extend, ker
 

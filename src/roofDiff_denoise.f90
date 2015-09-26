@@ -13,6 +13,8 @@ subroutine roofDiff_denoise(n, obsImg, bandwidth, diff)
 
   implicit none
 
+  integer :: n, k, i, i1, j, j1, bandwidth
+  
   double precision :: z(0:600, 0:600), obsImg(0:n, 0:n), &
        ker, temp, G1plus, ttemp2, ra, detn, detp, ln01, &
        G2plus, G3plus, z1(0:600, 0:600), r00, r20, r22, &
@@ -22,8 +24,6 @@ subroutine roofDiff_denoise(n, obsImg, bandwidth, diff)
        bhat1, bhat2, chat1, chat2, hassperp, ttemp1, lp01, & 
        lp11, lp20, lp02, diff(0:n, 0:n), ln11, ln20, ln02, &
        ln10, X2KZ, Y2KZ, XYKZ, aa
-
-  integer :: n, k, i, i1, j, j1, bandwidth
 
   external :: extend, ker
 

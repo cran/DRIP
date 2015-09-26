@@ -13,11 +13,11 @@ subroutine d_KQ(n, edge1, edge2, dKQ)
 
   implicit none
 
-  double precision :: x, y, x1, y1, dKQ, dist1, dist2, d1, &
-       d2
-
   integer :: n, edge1(0:n, 0:n), edge2(0:n, 0:n), nedge1, &
        nedge2, i, j, i1, j1
+
+  double precision :: x, y, x1, y1, dKQ, dist1, dist2, d1, &
+       d2
 
   ! Calculate performance measure                       
 

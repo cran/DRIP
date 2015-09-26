@@ -15,15 +15,15 @@ subroutine cluster_deblur(n, obsImg, bandwidth, mmt2, mmt4, &
 
   implicit none
 
+  integer :: n, i, j, k, i1, j1, s, n1clust, n2clust, sl, su, &
+       nitem, l1, l2, locsm, nnghb, bandwidth
+
   double precision :: z(0:600, 0:600), mmt2, small, varnum, &
        z1(0:600, 0:600), ra, w00, w20, ttemp1, ttemp2, ker, temp, &
        ahat, bhat, chat, obsImg(0:n, 0:n), e, zmin, zmax, zbar, &
        z1bar, z2bar, varden, sd, z1ss, z2ss, bwr(1:1000), &
        bwrLocalMax, cutoff, ttemp, ker1, fhat, zascend(1:1000), &
        mmt4, estImg(0:n, 0:n), zq, tolerance
-
-  integer :: n, i, j, k, i1, j1, s, n1clust, n2clust, sl, su, &
-       nitem, l1, l2, locsm, nnghb, bandwidth
 
   external :: extend, ker, ker1
 

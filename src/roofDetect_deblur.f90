@@ -13,6 +13,10 @@ subroutine roofDetect_deblur(n, obsImg, bandwidth, thresh, edge1, edge2)
 
   implicit none
 
+  integer :: n, k, i, i1, j, j1, bandwidth, edge1(0:n, 0:n), &
+       edge2(0:n, 0:n), n_edge1(0:n, 0:n), edge1_ext(0:600, 0:600), &
+       edge1_ext1(0:600, 0:600)
+  
   double precision :: z(0:600, 0:600), ker, obsImg(0:n, 0:n), &
        ker1, temp, G1plus, ttemp2, dist, ra, detn, detp, ln01, &
        G2plus, G3plus, z1(0:600, 0:600), r00, r20, r22, det, &
@@ -22,10 +26,6 @@ subroutine roofDetect_deblur(n, obsImg, bandwidth, thresh, edge1, edge2)
        bhat1, bhat2, chat1, chat2, hassperp, ttemp1, lp01, & 
        lp11, lp20, lp02, diff(0:n, 0:n), ln11, ln20, ln02, &
        ln00, ln10, thresh
-
-  integer :: n, k, i, i1, j, j1, bandwidth, edge1(0:n, 0:n), &
-       edge2(0:n, 0:n), n_edge1(0:n, 0:n), edge1_ext(0:600, 0:600), &
-       edge1_ext1(0:600, 0:600)
 
   external :: extend,  extend1, ker, ker1
 

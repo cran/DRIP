@@ -14,14 +14,14 @@ subroutine JP_LLK_CV(n, obsImg, nband, bandwidth, cv)
 
   implicit none
 
+  integer :: i, j, n, itemp, i1, j1, k, nband, iband, bandwidth(1:nband)
+  
   double precision :: z(0:600, 0:600), z1(0:600, 0:600), cv(1:nband), temp, &
        e1, e2, obsImg(0:n, 0:n), r00, r20, bhat, chat, bb, ra, gradperp, &
        fhat1, fhat2, ttemp1, fhat, ttemp2, temp1, temp2, ker, rplus00, rplus10, &
        rplus01, rplus11, rplus20, rplus02, ZKplus, XZKplus, YZKplus, rminus00, &
        rminus10, rminus01, rminus11, rminus20, rminus02, ZKminus, XZKminus, &
        YZKminus, bhat1, bhat2, chat1, chat2, det1, det2
-
-  integer :: i, j, n, itemp, i1, j1, k, nband, iband, bandwidth(1:nband)
 
   external :: extend, ker
 

@@ -38,6 +38,6 @@ out = modify2(4, edge)
 
 \references{
 Qiu, P. and Yandell, B., "Jump detection in regression surfaces,"
-Journal of Computational and Graphical Statistics 6(3), 1997,
+\emph{Journal of Computational and Graphical Statistics} \bold{6(3)}, 1997,
 332-354.
 }

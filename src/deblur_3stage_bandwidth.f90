@@ -16,6 +16,11 @@ subroutine deblur_3stage_bandwidth(n, obsImg, nband, bandwidth, edge1, edge2, &
 
   implicit none
 
+  integer :: n, i, j, i1, j1, step(0:600, 0:600), i2, i3, k1, &
+       step1(0:600, 0:600), nboot, roof(0:600, 0:600), nstep, nroof, &
+       roof1(0:600, 0:600), u, v, nedge, bandw, nband, bandwidth(1:nband), &
+       edge1(0:n, 0:n), edge2(0:n, 0:n)
+  
   double precision :: z(0:600, 0:600), z2(0:600, 0:600), x, y, mse(1:nband), sigma, &
        fbhat(0:600, 0:600), resid(0:600, 0:600), temp, x1, y1, cv(1:nband), ra, w00, &
        w10, w01, w11, w20, w02, ttemp1, ttemp2, ker, det, temp1, temp2, &
@@ -23,11 +28,6 @@ subroutine deblur_3stage_bandwidth(n, obsImg, nband, bandwidth, edge1, edge2, &
        xbar, ybar, lambda1, prin, ttemp, ker1, temp22, aa, msecv(1:nband), &
        zb(0:600, 0:600), zb2(0:600, 0:600), fboot(0:600, 0:600), llkbw(1:7), &
        optb1, obsImg(0:n, 0:n), u_temp, v_temp
-
-  integer :: n, i, j, i1, j1, step(0:600, 0:600), i2, i3, k1, &
-       step1(0:600, 0:600), nboot, roof(0:600, 0:600), nstep, nroof, &
-       roof1(0:600, 0:600), u, v, nedge, bandw, nband, bandwidth(1:nband), &
-       edge1(0:n, 0:n), edge2(0:n, 0:n)
 
   external :: extend, extend1, ker, ker1, surfest
 

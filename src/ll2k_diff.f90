@@ -13,13 +13,13 @@ subroutine ll2k_diff(n, obsImg, bandwidth, diff)
 
   implicit none
 
+  integer :: i, j, n, i1, j1, k, bandwidth
+  
   double precision :: z(0:600, 0:600), z1(0:600, 0:600), x, y, temp, &
        x1, y1, ker, r00, r20, bhat, chat, bb, ra, fhat1, fhat2, ker1, &
        gradperp, u00, u01, u10, u20, u02, u11, obsImg(0:n, 0:n), &
        den1, den2, v00, v01, v10, v20, v02, v11, Au1, Au2, Au3, Av1, &
        Av2, Av3, ttemp1, ttemp2, diff(0:n, 0:n), dist, m1hat
-
-  integer :: i, j, n, i1, j1, k, bandwidth
 
   external :: extend, ker, ker1
 

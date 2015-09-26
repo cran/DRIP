@@ -13,15 +13,14 @@ subroutine denoise_3stage_bandwidth(n, obsImg, nband, bandwidth,&
 
   implicit none
 
+  integer :: n, i, j, i1, j1, edge1(0:n, 0:n), k, nroof, nstep, &
+       step1(0:600, 0:600), edge2(0:n, 0:n), bandwidth, iband, nband,&
+       roof1(0:600, 0:600), step(0:600, 0:600), roof(0:600, 0:600)
+  
   double precision :: z(0:600, 0:600), z1(0:600, 0:600), x, y, &
        temp, x1, y1, ra, w00, ttemp1, ttemp2, ker, fhat, del, &
        temp11, sigmaxx, sigmayy, prin, ttemp, temp22, aa, xbar, &
        ybar, lambda1, sigmaxy, obsImg(0:n, 0:n), cv(1:nband)
-
-  integer :: n, i, j, i1, j1, edge1(0:n, 0:n), k, nroof, nstep, &
-       step1(0:600, 0:600), edge2(0:n, 0:n), bandwidth(1:nband), &
-       roof1(0:600, 0:600), step(0:600, 0:600), roof(0:600, 0:600), &
-       nband, iband
 
   external :: extend, extend1, ker
 

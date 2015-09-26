@@ -11,5 +11,5 @@
 \format{This dataset is saved in an ascii file.}
 \references{
 Kang, Y., and Qiu, P., "Jump Detection in Blurred Regression 
-Surfaces," Technometrics, 56, 2014, 539-550.
+Surfaces," \emph{Technometrics}, \bold{56}, 2014, 539-550.
 }

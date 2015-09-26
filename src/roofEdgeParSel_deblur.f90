@@ -16,14 +16,14 @@ subroutine roofEdgeParSel_deblur(n, obsImg, nband, bandwidth, nthresh, thresh, n
 
   implicit none
 
-  double precision :: obsImg(0:n, 0:n), thresh(1:nthresh), llkbw(1:7), sigma, optb1, &
-       fbhat(0:n, 0:n), resid(0:n, 0:n), dKQ(1:nband, 1:nthresh), diff_orig(0:n, 0:n), &
-       u_temp, v_temp, bootImg(0:n, 0:n), diff_boot(0:n, 0:n), h, dist
-
   integer :: n, nband, bandwidth(1:nband), nthresh, nboot, bandw, k, iband, u, v, &
        ithresh, edge_orig(0:n, 0:n), edge_boot(0:n, 0:n), iboot, edge1(0:n, 0:n), &
        i, j, edge1_ext(0:600, 0:600), edge1_ext1(0:600, 0:600), n_edge1(0:n, 0:n), &
        i1, j1
+  
+  double precision :: obsImg(0:n, 0:n), thresh(1:nthresh), llkbw(1:7), sigma, optb1, &
+       fbhat(0:n, 0:n), resid(0:n, 0:n), dKQ(1:nband, 1:nthresh), diff_orig(0:n, 0:n), &
+       u_temp, v_temp, bootImg(0:n, 0:n), diff_boot(0:n, 0:n), h, dist
 
   external :: surfest, roofDiff_deblur, d_KQ, extend1
 

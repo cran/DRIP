@@ -13,14 +13,14 @@ subroutine surfest(n, data, bandw, llkbw, sigma, fitted, resid, optb1)
 
   implicit none
 
+  integer :: n, i, j, k, l, bandw, i1, j1, optb
+  
   double precision :: data(0:n, 0:n), z(0:600, 0:600), z1(0:600, 0:600), &
        fbhat(0:600, 0:600), sigma, resid(0:n, 0:n), optb1, &
        fitted(0:n, 0:n), llkbw(1:bandw), cv(1:bandw), r00,   &
        r10, r01, r11, r02, r20, det1, det2, det3, det, ra,  &
        ttemp1, ttemp2, ttemp, ker, mincv, fhlin, r1(0:600, 0:600), &
        x, y, x1, y1, bb, tolerance
-
-  integer :: n, i, j, k, l, bandw, i1, j1, optb
 
   external:: ker, extend
 
