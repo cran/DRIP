@@ -29,9 +29,7 @@ image is too large")
     return(list(fitted = jp.llk$fitted, cv.band = cv.band, resid
                 = jp.llk$resid, sigma = jp.llk$sigma))
   }
-  else { x = seq(0, 1, length = n1); y = x
-         image(x, y, jp.llk$fitted, zlim = c(0, 255), col =
-               gray((0:255)/255))
+  else { image(jp.llk$fitted, col = gray((0:255)/255))
          return(list(fitted = jp.llk$fitted, cv.band = cv.band, resid
                 = jp.llk$resid, sigma = jp.llk$sigma))
   }

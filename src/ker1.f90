@@ -1,24 +1,19 @@
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!                                                                   !
-!  Define 1-D kernel function                                       !
-!                                                                   !
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+! Define 1-D kernel function                  !
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-double precision function ker1(x)
-  double precision :: x
+      DOUBLE PRECISION function ker1(x)
+      DOUBLE PRECISION :: x, pi
 
-  ker1 = 0D0
+      pi = 3.141592653589793D0
 
-  if (x >= 0D0 .AND. x <= 1D0) then
+      ker1 = 0D0
 
-     ! Truncated Gaussian kernel
+      if (x >= 0D0 .AND. x <= 1D0) then
 
-     !          ker1 = exp(x**2/2D0)/1.194958D0
+          ker1 = exp(x**2/2D0)/1.194958D0
+!         ker1 = x**2/3D0
 
-     ! Epanechnikov kernel
+      end if
 
-     ker1 = 3D0 * x**2
-
-  end if
-
-end function ker1
+      end function ker1

@@ -14,12 +14,16 @@ subroutine surfest(n, data, bandw, llkbw, sigma, fitted, resid, optb1)
   implicit none
 
   integer :: n, i, j, k, l, bandw, i1, j1, optb
+
+  double precision :: llkbw(1:bandw)
+
+  integer, parameter :: ext_size = 20
   
-  double precision :: data(0:n, 0:n), z(0:600, 0:600), z1(0:600, 0:600), &
-       fbhat(0:600, 0:600), sigma, resid(0:n, 0:n), optb1, &
-       fitted(0:n, 0:n), llkbw(1:bandw), cv(1:bandw), r00,   &
+  double precision :: data(0:n, 0:n), z(0:n, 0:n), z1(0:(n+ext_size), 0:(n+ext_size)), &
+       fbhat(0:(n+ext_size), 0:(n+ext_size)), sigma, resid(0:n, 0:n), optb1, &
+       fitted(0:n, 0:n), cv(1:bandw), r00,   &
        r10, r01, r11, r02, r20, det1, det2, det3, det, ra,  &
-       ttemp1, ttemp2, ttemp, ker, mincv, fhlin, r1(0:600, 0:600), &
+       ttemp1, ttemp2, ttemp, ker, mincv, fhlin, r1(0:(n+ext_size), 0:(n+ext_size)), &
        x, y, x1, y1, bb, tolerance
 
   external:: ker, extend
@@ -40,7 +44,7 @@ subroutine surfest(n, data, bandw, llkbw, sigma, fitted, resid, optb1)
 
   !! Extend to avoid boundary problems
 
-  call extend(n, 20, z, z1) ! This cannot be done if sample size < 20 or bandwidth > 20
+  call extend(n, ext_size, z, z1) ! This cannot be done if bandwidth >=20 or sample size <= 20. 
 
 
   !! Start bandwidth selection by cross validation. !!!!
@@ -50,8 +54,8 @@ subroutine surfest(n, data, bandw, llkbw, sigma, fitted, resid, optb1)
      k = int(dble(n) * llkbw(l))
      ra = dble(k)/dble(n)
 
-     do i = 20, n + 20
-        do j = 20, n + 20
+     do i = ext_size, n + ext_size
+        do j = ext_size, n + ext_size
 
            x = dble(i)/dble(n)
            y = dble(j)/dble(n)
@@ -127,8 +131,8 @@ subroutine surfest(n, data, bandw, llkbw, sigma, fitted, resid, optb1)
 
      cv(l) = 0D0
 
-     do i = 20, n + 20
-        do j = 20, n + 20
+     do i = ext_size, n + ext_size
+        do j = ext_size, n + ext_size
 
            cv(l) = cv(l) + r1(i, j)**2
 
@@ -160,10 +164,10 @@ subroutine surfest(n, data, bandw, llkbw, sigma, fitted, resid, optb1)
 
   sigma = 0D0
 
-  do i = 20, 20 + n
-     do j = 20, 20 + n
+  do i = ext_size, ext_size + n
+     do j = ext_size, ext_size + n
 
-        fitted(i - 20, j - 20) = 0D0
+        fitted(i - ext_size, j - ext_size) = 0D0
         fhlin = 0D0
         r00 = 0D0
         r10 = 0D0
@@ -219,12 +223,12 @@ subroutine surfest(n, data, bandw, llkbw, sigma, fitted, resid, optb1)
         end do
 
         fhlin = fhlin/det
-        fitted(i - 20, j - 20) = fhlin
+        fitted(i - ext_size, j - ext_size) = fhlin
 
         !! Residuals obtained from conventional local linear kernel smoothing.
 
-        resid(i - 20, j - 20) = z1(i, j) - fitted(i - 20, j - 20) 
-        sigma = sigma + resid(i - 20, j - 20)**2
+        resid(i - ext_size, j - ext_size) = z1(i, j) - fitted(i - ext_size, j - ext_size) 
+        sigma = sigma + resid(i - ext_size, j - ext_size)**2
 
      end do
   end do

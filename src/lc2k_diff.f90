@@ -15,7 +15,7 @@ subroutine lc2k_diff(n, obsImg, bandwidth, diff)
 
   integer :: i, j, n, i1, j1, k, bandwidth
   
-  double precision :: z(0:600, 0:600), z1(0:600, 0:600), x, y, temp, &
+  double precision :: z(0:n, 0:n), z1(0:(n+2*bandwidth), 0:(n+2*bandwidth)), x, y, temp, &
        x1, y1, ker, r00, r20, bhat, chat, bb, ra, fhat1, fhat2, ker1, &
        gradperp, diff(0:n, 0:n), obsImg(0:n, 0:n), den1, den2, m1hat, &
        dist
@@ -39,7 +39,7 @@ subroutine lc2k_diff(n, obsImg, bandwidth, diff)
 
   ! Extend image to avoid boundary problems.
 
-  Call extend(n, k, z, z1)
+  Call extend(n, k, z, z1(0:(n+2*k), 0:(n+2*k)))
 
   ! Calculate first derivatives                       
 

@@ -15,11 +15,13 @@ subroutine deblur_3stage(n, obsImg, bandwidth, edge1, edge2, &
 
   implicit none
 
-  integer :: n, i, j, i1, j1, edge1(0:n, 0:n), k, nroof, nstep, &
-       step1(0:600, 0:600), edge2(0:n, 0:n), bandwidth, &
-       roof1(0:600, 0:600), step(0:600, 0:600), roof(0:600, 0:600)
+  integer :: n, bandwidth
+
+  integer :: i, j, i1, j1, edge1(0:n, 0:n), k, nroof, nstep, &
+       step1(0:(n+2*bandwidth), 0:(n+2*bandwidth)), edge2(0:n, 0:n), &
+       roof1(0:(n+2*bandwidth), 0:(n+2*bandwidth)), step(0:n, 0:n), roof(0:n, 0:n)
   
-  double precision :: z(0:600, 0:600), z1(0:600, 0:600), x, y, &
+  double precision :: z(0:n, 0:n), z1(0:(n+2*bandwidth), 0:(n+2*bandwidth)), x, y, &
        temp, x1, y1, ra, w00, ttemp1, ttemp2, ker, fhat, del, &
        temp11, sigmaxx, sigmayy, prin, ttemp, ker1,temp22, aa, &
        xbar, ybar, lambda1, sigmaxy, obsImg(0:n, 0:n), &

@@ -13,11 +13,13 @@ subroutine roofDiff_denoise(n, obsImg, bandwidth, diff)
 
   implicit none
 
-  integer :: n, k, i, i1, j, j1, bandwidth
+  integer :: n, bandwidth
+
+  integer :: k, i, i1, j, j1
   
-  double precision :: z(0:600, 0:600), obsImg(0:n, 0:n), &
+  double precision :: z(0:n, 0:n), obsImg(0:n, 0:n), &
        ker, temp, G1plus, ttemp2, ra, detn, detp, ln01, &
-       G2plus, G3plus, z1(0:600, 0:600), r00, r20, r22, &
+       G2plus, G3plus, z1(0:(n+2*bandwidth), 0:(n+2*bandwidth)), r00, r20, r22, &
        G1minus, G2minus, G3minus, r40, eta1, eta2, H1plus, &
        H2plus, H3plus, H1minus, H2minus, eta3, det, KZ, &
        H3minus, dhat, ehat, fhat, bb, lp00, lp10, ln00, &
@@ -44,7 +46,7 @@ subroutine roofDiff_denoise(n, obsImg, bandwidth, diff)
 
   ! Extend to avoid boundary problems.
 
-  call extend(n, k, z, z1)
+  call extend(n, k, z, z1(0:(n+2*k), 0:(n+2*k)))
 
   ! Calculate first and second derivatives.
 

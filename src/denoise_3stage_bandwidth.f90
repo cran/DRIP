@@ -13,11 +13,13 @@ subroutine denoise_3stage_bandwidth(n, obsImg, nband, bandwidth,&
 
   implicit none
 
-  integer :: n, i, j, i1, j1, edge1(0:n, 0:n), k, nroof, nstep, &
-       step1(0:600, 0:600), edge2(0:n, 0:n), bandwidth, iband, nband,&
-       roof1(0:600, 0:600), step(0:600, 0:600), roof(0:600, 0:600)
+  integer :: n, nband, bandwidth(1:nband)
+
+  integer :: i, j, i1, j1, edge1(0:n, 0:n), k, nroof, nstep, &
+       step1(0:(n+2*maxval(bandwidth)), 0:(n+2*maxval(bandwidth))), edge2(0:n, 0:n), iband, &
+       roof1(0:(n+2*maxval(bandwidth)), 0:(n+2*maxval(bandwidth))), step(0:n, 0:n), roof(0:n, 0:n)
   
-  double precision :: z(0:600, 0:600), z1(0:600, 0:600), x, y, &
+  double precision :: z(0:n, 0:n), z1(0:(n+2*maxval(bandwidth)), 0:(n+2*maxval(bandwidth))), x, y, &
        temp, x1, y1, ra, w00, ttemp1, ttemp2, ker, fhat, del, &
        temp11, sigmaxx, sigmayy, prin, ttemp, temp22, aa, xbar, &
        ybar, lambda1, sigmaxy, obsImg(0:n, 0:n), cv(1:nband)
@@ -46,9 +48,9 @@ subroutine denoise_3stage_bandwidth(n, obsImg, nband, bandwidth,&
 
      ! Extend to avoid boundary problems.
 
-     call extend(n, k, z, z1)
-     call extend1(n, k, step, step1)
-     call extend1(n, k, roof, roof1)
+     call extend(n, k, z, z1(0:(n+2*k), 0:(n+2*k)))
+     call extend1(n, k, step, step1(0:(n+2*k), 0:(n+2*k)))
+     call extend1(n, k, roof, roof1(0:(n+2*k), 0:(n+2*k)))
 
      ! In a nbhd with bdwdth k of a given point, if the number
      ! of detected edge pixels is smaller than (k-1)/2, then the

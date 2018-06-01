@@ -16,7 +16,7 @@ subroutine JP_LLK_CV(n, obsImg, nband, bandwidth, cv)
 
   integer :: i, j, n, itemp, i1, j1, k, nband, iband, bandwidth(1:nband)
   
-  double precision :: z(0:600, 0:600), z1(0:600, 0:600), cv(1:nband), temp, &
+  double precision :: z(0:n, 0:n), z1(0:(n+2*maxval(bandwidth)), 0:(n+2*maxval(bandwidth))), cv(1:nband), temp, &
        e1, e2, obsImg(0:n, 0:n), r00, r20, bhat, chat, bb, ra, gradperp, &
        fhat1, fhat2, ttemp1, fhat, ttemp2, temp1, temp2, ker, rplus00, rplus10, &
        rplus01, rplus11, rplus20, rplus02, ZKplus, XZKplus, YZKplus, rminus00, &
@@ -42,7 +42,7 @@ subroutine JP_LLK_CV(n, obsImg, nband, bandwidth, cv)
 
      ! Extend to avoid boundary problems.
 
-     call extend(n, k, z, z1)
+     call extend(n, k, z, z1(0:(n+2*k), 0:(n+2*k)))
 
 
      ! Calculate CV.

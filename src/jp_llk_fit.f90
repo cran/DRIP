@@ -16,7 +16,7 @@ subroutine JP_LLK_fit(n, obsImg, bandwidth, fitted, resid, sigma)
 
   integer :: i, j, n, itemp, i1, j1, k, bandwidth
   
-  double precision :: z(0:600, 0:600), z1(0:600, 0:600), sigma, &
+  double precision :: z(0:n, 0:n), z1(0:(n+2*bandwidth), 0:(n+2*bandwidth)), sigma, &
        fitted(0:n, 0:n), resid(0:n, 0:n), temp, e1, e2, r00, &
        r20, bhat, chat, bb, ra, gradperp, fhat1, fhat2, ttemp1, fhat, &
        ttemp2, det1, det2, ker, obsImg(0:n, 0:n), rplus00, rplus10, &
@@ -40,7 +40,7 @@ subroutine JP_LLK_fit(n, obsImg, bandwidth, fitted, resid, sigma)
 
   ! Extend to avoid boundary problems.
 
-  call extend(n, k, z, z1)
+  call extend(n, k, z, z1(0:(n+2*k), 0:(n+2*k)))
 
   ! Calculate first derivatives by LLK smoothing. 
 

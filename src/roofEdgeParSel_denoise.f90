@@ -16,12 +16,17 @@ subroutine roofEdgeParSel_denoise(n, obsImg, nband, bandwidth, nthresh, thresh, 
 
   implicit none
 
-  integer :: n, nband, bandwidth(1:nband), nthresh, nboot, bandw, k, iband, u, v, &
+  integer :: n, nband, bandwidth(1:nband), nthresh
+
+  double precision :: thresh(1:nthresh)
+
+  integer :: nboot, bandw, k, iband, u, v, &
        ithresh, edge_orig(0:n, 0:n), edge_boot(0:n, 0:n), iboot, edge1(0:n, 0:n), &
-       i, j, edge1_ext(0:600, 0:600), edge1_ext1(0:600, 0:600), n_edge1(0:n, 0:n), &
+       i, j, edge1_ext(0:(n+2*maxval(bandwidth)), 0:(n+2*maxval(bandwidth))), &
+       edge1_ext1(0:(n+2*maxval(bandwidth)), 0:(n+2*maxval(bandwidth))), n_edge1(0:n, 0:n), &
        i1, j1, cv_bandwidth, llkbw(1:7)
   
-  double precision :: obsImg(0:n, 0:n), thresh(1:nthresh), sigma, &
+  double precision :: obsImg(0:n, 0:n), sigma, &
        fbhat(0:n, 0:n), resid(0:n, 0:n), dKQ(1:nband, 1:nthresh), diff_orig(0:n, 0:n), &
        u_temp, v_temp, bootImg(0:n, 0:n), diff_boot(0:n, 0:n), h, dist, cv(1:7), &
        cvmin
@@ -80,7 +85,7 @@ subroutine roofEdgeParSel_denoise(n, obsImg, nband, bandwidth, nthresh, thresh, 
 
      !! Flag the neighborhood if there are step edges.
      
-     call extend1(n, k, edge1_ext, edge1_ext1)
+     call extend1(n, k, edge1_ext(0:n, 0:n), edge1_ext1(0:(n+2*k), 0:(n+2*k)))
 
      do i = k, n + k
         do j = k, n + k

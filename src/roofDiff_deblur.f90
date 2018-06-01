@@ -13,11 +13,13 @@ subroutine roofDiff_deblur(n, obsImg, bandwidth, diff)
 
   implicit none
 
-  integer :: n, k, i, i1, j, j1, bandwidth
+  integer :: n, bandwidth
 
-  double precision :: z(0:600, 0:600), ker, obsImg(0:n, 0:n), &
+  integer :: k, i, i1, j, j1
+
+  double precision :: z(0:n, 0:n), ker, obsImg(0:n, 0:n), &
        ker1, temp, G1plus, ttemp2, dist, ra, detn, detp, ln01, &
-       G2plus, G3plus, z1(0:600, 0:600), r00, r20, r22, det, &
+       G2plus, G3plus, z1(0:(n+2*bandwidth), 0:(n+2*bandwidth)), r00, r20, r22, det, &
        G1minus, G2minus, G3minus, r40, eta3, H1plus, KZ, X2KZ, &
        H2plus, H3plus, H1minus, H2minus, eta1, eta2, Y2KZ, fhat, &
        H3minus, dhat, ehat, aa, bb, m2, lp00, lp10, XYKZ, &
@@ -44,7 +46,7 @@ subroutine roofDiff_deblur(n, obsImg, bandwidth, diff)
 
   ! Extend to avoid boundary problems.
 
-  call extend(n, k, z, z1)
+  call extend(n, k, z, z1(0:(n+2*k), 0:(n+2*k)))
 
   ! Calculate first and second derivatives.
 

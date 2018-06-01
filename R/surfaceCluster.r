@@ -1,9 +1,9 @@
 # This is R source code for function 'surfaceCluster', in the
-# R package "image".
-# Date: May 3, 2013
+# R package "DRIP".
+# Date: September 05, 2017
 # Creator: Yicheng Kang
 
-surfaceCluster = function(image, bandwidth, sig.level,
+surfaceCluster = function(image, bandwidth, sig.level, sigma, phi0, mean_std_abs, cw=3, 
   blur = FALSE, plot = FALSE){
   if (!is.matrix(image))
     stop("image data must be a matrix")
@@ -24,30 +24,29 @@ image is too large")
   n1 = dim(image)[1]
   z = matrix(as.double(image), ncol = n1)
   zq = as.double(qnorm(sig.level))
-  jp.llk = JPLLK_surface(z, 2:7)
-  fitted = jp.llk$fitted
-  resid = jp.llk$resid
-  mmt2 = (jp.llk$sigma)^2
-  mmt4 = mean(resid^4)
+  if (missing(sigma) | missing(phi0) | missing(mean_std_abs)) {
+      jp.llk = JPLLK_surface(z, 2:7)
+      fitted = jp.llk$fitted
+      resid = jp.llk$resid
+      sigma = as.double(jp.llk$sigma)
+      std_resid = resid / sigma
+      phi0 = as.double(density(x=std_resid, bw=1.06*n1^(-2/5), kernel="gaussian", n=4, from=-1, to=2)$y[2])
+      mean_std_abs = as.double(mean(abs(std_resid)))
+  }
   k = as.integer(bandwidth)
+  cw = as.integer(cw)
   if (blur == FALSE) {
-    out = .Fortran('cluster_denoise', n = as.integer(n1 - 1),
-      obsImg = z, bandwidth = k, mmt2 = as.double(mmt2), mmt4 =
-      as.double(mmt4), zq = zq, estImg = z)
+    out = .Fortran('cluster_cwm_denoise', n = as.integer(n1 - 1),
+      obsImg = z, k = k, zq = zq, sigma=sigma, phi0=phi0, mean_std_abs=mean_std_abs, cw=cw, estImg = z)
   }
   else {
-    out = .Fortran('cluster_deblur', n = as.integer(n1 - 1),
-            obsImg = z, bandwidth = k, mmt2 = as.double(mmt2), mmt4 =
-            as.double(mmt4), zq = zq, estImg = z)
+      out = .Fortran('cluster_cwm_deblur', n = as.integer(n1 - 1), obsImg = z, k = k,
+                     zq = zq, sigma=sigma, phi0=phi0, mean_std_abs=mean_std_abs, cw=cw, estImg = z)
   }
   if (plot == FALSE) {
-    return(list(estImg = out$estImg, sigma2 = out$mmt2,
-                mmt4 = out$mmt4))
+    return(list(estImg = out$estImg, sigma = sigma, phi0=phi0, mean_std_abs=mean_std_abs))
   }
-  else { x = seq(0, 1, length = n1); y = x
-         image(x, y, out$estImg, zlim = c(0, 255), col = gray((0:255)/
-                                                     255))
-         return(list(estImg = out$estImg, sigma2 = out$mmt2,
-                     mmt4 = out$mmt4))
+  else { image(out$estImg, col = gray((0:255)/255))
+         return(list(estImg = out$estImg, sigma = sigma, phi0=phi0, mean_std_abs=mean_std_abs))
        }
 }

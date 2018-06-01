@@ -5,15 +5,13 @@
 !                                                                    !
 !     Creator: Peihua Qiu                                            !
 !     Date:    November 24, 2008                                     !
-!     Revised by: Yicheng Kang                                       !
-!     Date: Sep 24, 2015                                             !
 !                                                                    !
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 Subroutine extend(n,k,z,z1)
 
   INTEGER :: n,k
-  DOUBLE PRECISION :: z(0:600,0:600),z1(0:600,0:600)
+  DOUBLE PRECISION :: z(0:n,0:n),z1(0:(n+2*k),0:(n+2*k))
 
   do i=k,k+n
      do j=k,k+n

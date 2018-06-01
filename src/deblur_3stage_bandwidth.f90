@@ -16,18 +16,19 @@ subroutine deblur_3stage_bandwidth(n, obsImg, nband, bandwidth, edge1, edge2, &
 
   implicit none
 
-  integer :: n, i, j, i1, j1, step(0:600, 0:600), i2, i3, k1, &
-       step1(0:600, 0:600), nboot, roof(0:600, 0:600), nstep, nroof, &
-       roof1(0:600, 0:600), u, v, nedge, bandw, nband, bandwidth(1:nband), &
-       edge1(0:n, 0:n), edge2(0:n, 0:n)
+  integer :: n, nband, bandwidth(1:nband)
+
+  integer :: i, j, i1, j1, step(0:n, 0:n), i2, i3, k1, step1(0:(n+2*maxval(bandwidth)), 0:(n+2*maxval(bandwidth))), &
+       nboot, roof(0:n, 0:n), nstep, nroof, roof1(0:(n+2*maxval(bandwidth)), 0:(n+2*maxval(bandwidth))), u, v, &
+       nedge, bandw, edge1(0:n, 0:n), edge2(0:n, 0:n)
   
-  double precision :: z(0:600, 0:600), z2(0:600, 0:600), x, y, mse(1:nband), sigma, &
-       fbhat(0:600, 0:600), resid(0:600, 0:600), temp, x1, y1, cv(1:nband), ra, w00, &
-       w10, w01, w11, w20, w02, ttemp1, ttemp2, ker, det, temp1, temp2, &
-       temp3, fhat(0:600, 0:600), temp11, sigmaxx, sigmayy, sigmaxy, del, &
-       xbar, ybar, lambda1, prin, ttemp, ker1, temp22, aa, msecv(1:nband), &
-       zb(0:600, 0:600), zb2(0:600, 0:600), fboot(0:600, 0:600), llkbw(1:7), &
-       optb1, obsImg(0:n, 0:n), u_temp, v_temp
+  double precision :: z(0:n, 0:n), z2(0:(n+2*maxval(bandwidth)), 0:(n+2*maxval(bandwidth))), x, y, mse(1:nband), sigma, &
+       fbhat(0:(n+2*maxval(bandwidth)), 0:(n+2*maxval(bandwidth))), resid(0:(n+2*maxval(bandwidth)), 0:(n+2*maxval(bandwidth))),&
+       temp, x1, y1, cv(1:nband), ra, w00, w10, w01, w11, w20, w02, ttemp1, ttemp2, ker, det, temp1, temp2, &
+       temp3, fhat(0:(n+2*maxval(bandwidth)), 0:(n+2*maxval(bandwidth))), temp11, sigmaxx, sigmayy, sigmaxy, del, &
+       xbar, ybar, lambda1, prin, ttemp, ker1, temp22, zb(0:n, 0:n), zb2(0:(n+2*maxval(bandwidth)), 0:(n+2*maxval(bandwidth))), &
+       fboot(0:(n+2*maxval(bandwidth)), 0:(n+2*maxval(bandwidth))), llkbw(1:7), aa, msecv(1:nband), optb1, obsImg(0:n, 0:n), &
+       u_temp, v_temp
 
   external :: extend, extend1, ker, ker1, surfest
 
@@ -86,9 +87,9 @@ subroutine deblur_3stage_bandwidth(n, obsImg, nband, bandwidth, edge1, edge2, &
      !! usual. Otherwise, fit a PC line through the detected edge pixels and then
      !! estimate surface locally.
 
-     call extend(n, k1, z, z2)
-     call extend1(n, k1, step, step1)
-     call extend1(n, k1, roof, roof1)
+     call extend(n, k1, z, z2(0:(n+2*k1), 0:(n+2*k1)))
+     call extend1(n, k1, step, step1(0:(n+2*k1), 0:(n+2*k1)))
+     call extend1(n, k1, roof, roof1(0:(n+2*k1), 0:(n+2*k1)))
 
      ra = dble(k1)/dble(n)
 
@@ -632,7 +633,7 @@ subroutine deblur_3stage_bandwidth(n, obsImg, nband, bandwidth, edge1, edge2, &
 
         !! Extend to avoid boundary problems. Bootstrap sample.
 
-        call extend(n, k1, zb, zb2)
+        call extend(n, k1, zb, zb2(0:(n+2*k1), 0:(n+2*k1)))
 
         !! Start estimating surface. Bootstrap sample
 

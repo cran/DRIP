@@ -13,13 +13,15 @@ subroutine roofDetect_denoise(n, obsImg, bandwidth, thresh, edge1, edge2)
 
   implicit none
 
-  integer :: n, k, i, i1, j, j1, bandwidth, edge1(0:n, 0:n), &
-       edge2(0:n, 0:n), n_edge1(0:n, 0:n), edge1_ext(0:600, 0:600), &
-       edge1_ext1(0:600, 0:600)
+  integer :: n, bandwidth
+
+  integer :: k, i, i1, j, j1, edge1(0:n, 0:n), &
+       edge2(0:n, 0:n), n_edge1(0:n, 0:n), edge1_ext(0:(n+2*bandwidth), 0:(n+2*bandwidth)), &
+       edge1_ext1(0:(n+2*bandwidth), 0:(n+2*bandwidth))
   
-  double precision :: z(0:600, 0:600), obsImg(0:n, 0:n), &
+  double precision :: z(0:n, 0:n), obsImg(0:n, 0:n), &
        ker, temp, G1plus, ttemp2, ra, detn, detp, ln01, &
-       G2plus, G3plus, z1(0:600, 0:600), r00, r20, r22, &
+       G2plus, G3plus, z1(0:(n+2*bandwidth), 0:(n+2*bandwidth)), r00, r20, r22, &
        G1minus, G2minus, G3minus, r40, eta1, eta2, H1plus, &
        H2plus, H3plus, H1minus, H2minus, eta3, det, KZ, &
        H3minus, dhat, ehat, fhat, bb, lp00, lp10, ln00, &
@@ -38,7 +40,7 @@ subroutine roofDetect_denoise(n, obsImg, bandwidth, thresh, edge1, edge2)
 
   edge1_ext(0:n, 0:n) = edge1(0:n, 0:n)
 
-  call extend1(n, k, edge1_ext, edge1_ext1)
+  call extend1(n, k, edge1_ext(0:n, 0:n), edge1_ext1(0:(n+2*k), 0:(n+2*k)))
 
   do i = k, n + k
      do j = k, n + k
@@ -72,7 +74,7 @@ subroutine roofDetect_denoise(n, obsImg, bandwidth, thresh, edge1, edge2)
 
   !! Extend to avoid boundary problems.
 
-  call extend(n, k, z, z1)
+  call extend(n, k, z, z1(0:(n+2*k), 0:(n+2*k)))
 
   !! Calculate first and second derivatives.
 
