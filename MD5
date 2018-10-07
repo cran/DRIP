@@ -1,5 +1,5 @@
-0617f8810e19bd0784b6a795048efcf7 *DESCRIPTION
-0756cc1d5fbb0d8ec53e88775e74b86f *NAMESPACE
+6d3b1fb65cc75f4ba67df597213a44e4 *DESCRIPTION
+3487fefd3b20f8b4af21bef182ff3c7b *NAMESPACE
 7bb70106b27cff6d85a5690933e5babb *R/JPLLK_surface.r
 e725c47c14943ce5b6b4d8f31f9df471 *R/cv.jpex.R
 9e44ba8ee8fcd8125579dea2604fb026 *R/dKQ.r
@@ -25,6 +25,9 @@ ea7d34320b73d10268f791ef8f4a7467 *R/stepEdgeLLK.r
 5aa80f78107531946e0eeff4c87cba53 *R/surfaceCluster_bandwidth.r
 8c2295b3e6c397f71b6a7db0e35c9b7d *R/threeStage.r
 47ecc544577dd7083651b630d55b52a4 *R/threeStageParSel.r
+2ee6281df3a48ebf8e9b5943efc6bce6 *cleanup
+e0e7c37e604fdb7ef0660a3a2b68617d *configure
+a07b84248406ad5e1a1c0d103e6227d4 *configure.ac
 8110bb0a49a0e6041b36550cab598b23 *data/brain.RData
 f9df06a79bce2e8de782496b706a96d9 *data/circles.RData
 bdce612972ea0939235c3bea3778b809 *data/kid.RData
@@ -67,7 +70,8 @@ fde08408841bf12caab59412444097ce *man/stepEdgeParSelLCK.Rd
 1be7dd38c6bd5bdbade3b22248d0e030 *src/JPEX0.c
 bd05f0becc0a085c96726f3e22bbad19 *src/LMF.f90
 8931baddd988e5a46366710b0ad7c003 *src/LOOCV.c
-73e89e91b4cc6fa64cc104d3d921b9c2 *src/Makevars
+0bedc427567c5207e2675e71571e0819 *src/Makevars.in
+3f7c071f1a65529da9c401162d49a54a *src/Makevars.win
 0aec5f7ea71bcf2e97443e2dd6ba78f1 *src/cluster_cwm_deblur.f90
 fb13a7ef0f516168bb0de4860b53fdb3 *src/cluster_cwm_deblur_bandwidth.f90
 89fe88724b0c99dcd1803b625128d56b *src/cluster_cwm_denoise.f90
