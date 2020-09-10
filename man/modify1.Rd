@@ -1,6 +1,6 @@
 \name{modify1}
 \alias{modify1}
-\keyword{post processing, edge detection}
+\keyword{first-type modification}
 \title{Edge detection, post processing}
 \description{Modify detected edges to make them thin. }
 \usage{modify1(bandwidth, image, edge, plot)}

@@ -1,6 +1,6 @@
 \name{roofEdgeParSel}
 \alias{roofEdgeParSel}
-\keyword{roof/valley edge detection, thresholding}
+\keyword{parameter selection in roofEdge}
 \title{roof/valley edge detection, parameter selection}
 \description{Select bandwidth and threshold value for the roof/valley edge detector
   using bootstrap procedure}

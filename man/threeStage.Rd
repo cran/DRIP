@@ -1,6 +1,6 @@
 \name{threeStage}
 \alias{threeStage}
-\keyword{Image restoration, principal component line}
+\keyword{three-stage image restoration}
 \title{Denoising, deblurring and edge-preserving}
 \description{ Estimate surface using local smoothing
   and fitting principal component line. Bandwidth is

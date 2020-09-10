@@ -5,12 +5,15 @@
 cv.jpex() selects the leave-one-out cross validation (CV) bandwidth for LLK smoothing and estimates the noise level in the input image. Both the bandwidth parameter and the noise level are required inputs for the blind image deblurring procedure jpex().  
 }
 \usage{
-cv.jpex(image, bandwidth)
+cv.jpex(image, bandwidths, ncpus = 1)
 }
 \arguments{
 \item{image}{A blurry image to deblurred}
 
-\item{bandwidth}{A vector of positive integers that specifies the size of the neighborhood for local smoothing.}
+\item{bandwidths}{A vector of positive integers that specifies the size
+  of the neighborhood for local smoothing.}
+
+\item{ncpus}{The number of CPUs allocated for parallel computing.}
 
 }
 \value{
@@ -25,13 +28,15 @@ cv.jpex(image, bandwidth)
 \item{band.min}{The bandwidth parameter that results in the smallest CV error.}
 }
 \references{
-Kang, Y. (2018), ``Consistent Blind Image Deblurring Using Jump-Preserving Extrapolation''.
+Kang, Y. (2020) ``Consistent Blind Image Deblurring Using
+Jump-Preserving Extrapolation'', \emph{Journal of Computational and
+ Graphical Statistics}, \bold{29}(2), 372 -- 382.
 }
 \author{Yicheng Kang}
 \seealso{\code{\link{jpex}}}
 \examples{
-require(DRIP)
+library(DRIP)
 data(stopsign)
-out = cv.jpex(stopsign, c(2,3))
+out <- cv.jpex(stopsign, c(2,3))
 }
 

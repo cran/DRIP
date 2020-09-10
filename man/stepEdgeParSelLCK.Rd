@@ -1,6 +1,6 @@
 \name{stepEdgeParSelLCK}
 \alias{stepEdgeParSelLCK}
-\keyword{edge detection, thresholding}
+\keyword{LCK parameter selection}
 \title{edge detection, parameter selection}
 \description{Select bandwidth and threshold value for LCK edge detector
   using bootstrap procedure}

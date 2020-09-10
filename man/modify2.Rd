@@ -1,6 +1,6 @@
 \name{modify2}
 \alias{modify2}
-\keyword{post processing, edge detection}
+\keyword{second-type modification}
 \title{Edge detection, post processing}
 \description{Delete deceptive edge pixels that are scattered
   in the design space.}

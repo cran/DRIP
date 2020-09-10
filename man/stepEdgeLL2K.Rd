@@ -1,6 +1,6 @@
 \name{stepEdgeLL2K}
 \alias{stepEdgeLL2K}
-\keyword{image processing, step edge detection}
+\keyword{local linear two-kernel step edge detection}
 \title{Edge detection, denoising and deblurring}
 \description{Detect step edges in an image using piecewise
   local linear kernel smoothing.}

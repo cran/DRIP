@@ -1,6 +1,6 @@
 \name{roofEdge}
 \alias{roofEdge}
-\keyword{image processing, roof/valley edge detection}
+\keyword{roof edge detection}
 \title{Edge detection, denoising and deblurring}
 \description{Detect roof/valley edges in an image using 
   piecewise local linear kernel smoothing.}

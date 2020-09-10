@@ -1,6 +1,6 @@
 \name{diffLLK}
 \alias{diffLLK}
-\keyword{one-sided estimator, jump-preserving}
+\keyword{local linear one-kernel estimator}
 \title{local linear kernel difference}
 \description{Compute difference between two one-sided LLK
   estimators along the gradient direction.}

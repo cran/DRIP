@@ -1,6 +1,6 @@
 \name{surfaceCluster_bandwidth}
 \alias{surfaceCluster_bandwidth}
-\keyword{Surface estimation, local pixel clustering}
+\keyword{bandwidth selection in surfaceCluster}
 \title{Denoising, deblurring, bandwidth selection, and edge-preserving}
 \description{ Select the bandwidth parameter for the function surfaceCluster based on cross validation. In the cases when there is no blur involved (i.e., denoising only), leave-one-out cross validation is used. In the cases when there is blur involved, a modified cross validation is used. }
 \usage{surfaceCluster_bandwidth(image, bandwidths, sig.level, sigma,

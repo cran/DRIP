@@ -1,7 +1,7 @@
 \name{roofDiff}
 \alias{roofDiff}
 \keyword{
-	one-sided estimator, roof/valley edge
+	second-order difference estimator
 }
 \title{
 	roof/valley edge detection

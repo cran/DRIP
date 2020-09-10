@@ -1,6 +1,6 @@
 \name{threeStageParSel}
 \alias{threeStageParSel}
-\keyword{Bandwidth Selection, Cross Validation (CV)}
+\keyword{parameter selection in threeStage}
 \title{image denoising/deblurring, bandwidth selection, bootstrap}
 \description{Select the bandwidth value for the image restoration method
   implemented in the function threeStage}

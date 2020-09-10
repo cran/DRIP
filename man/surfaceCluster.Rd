@@ -1,6 +1,6 @@
 \name{surfaceCluster}
 \alias{surfaceCluster}
-\keyword{Surface estimation, local pixel clustering}
+\keyword{local pixel clustering}
 \title{Denoising, deblurring and edge-preserving}
 \description{ Estimate surface using local pixel clustering 
   and kernel smoothing. Bandwidth is specified by user.}

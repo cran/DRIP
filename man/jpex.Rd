@@ -22,13 +22,16 @@ jpex(image, bandwidth, alpha, sigma)
 \item{edge}{The square matrix, the element of which is the value of the Chi-square test statistic at the pixel location. One can classify a given pixel as a blurry pixcel if edge[i,j]>qchisq(1-alpha, 2).}
 }
 \references{
-Kang, Y. (2018) ``Consistent Blind Image Deblurring Using Jump-Preserving Extrapolation''.
+Kang, Y. (2020) ``Consistent Blind Image Deblurring Using
+Jump-Preserving Extrapolation'', \emph{Journal of Computational and
+ Graphical Statistics}, \bold{29}(2), 372 -- 382.
 }
 \author{Yicheng Kang}
 \seealso{\code{\link{cv.jpex}}}
 \examples{
-require(DRIP)
+library(DRIP)
 data(stopsign)
-out = jpex(image=stopsign, bandwidth=as.integer(2), sigma=0.00623, alpha=0.001)
+out <- jpex(image = stopsign, bandwidth = as.integer(2), sigma =
+0.00623, alpha = 0.001)
 }
 

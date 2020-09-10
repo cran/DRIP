@@ -1,6 +1,6 @@
 \name{diffLL2K}
 \alias{diffLL2K}
-\keyword{one-sided estimator, jump-preserving}
+\keyword{local linear two-kernel estimator}
 \title{local linear kernel difference}
 \description{Compute difference between two one-sided LL2K
   estimators along the gradient direction.}
