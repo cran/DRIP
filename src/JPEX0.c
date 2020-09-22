@@ -22,7 +22,7 @@ int minloc(int n, double *x) {
 
 void JPEX0(double *Z, int *nin, int *kin, double *alphain, double *sigmain, double *EDGE, double *fhat){
   int p = 3, nc = 1, p0 = 1;
-  int const rex = 25; 		/* radius for searching the nearest sharp pixel */
+  /* int rex = 25; */ 		/* radius for searching the nearest sharp pixel */
   int df, i, j, i1, j1;
   int starLoc, istar, jstar;
   double rss0, rssa, thresh;
@@ -124,7 +124,7 @@ void JPEX0(double *Z, int *nin, int *kin, double *alphain, double *sigmain, doub
 	}
       }
       LCK_coef[0] = eta00/A00;
-      rss0 = S00 - 2 * LLK_coef[0] * eta00 + pow(LCK_coef[0], 2) * A00;
+      rss0 = S00 - 2 * LCK_coef[0] * eta00 + pow(LCK_coef[0], 2) * A00;
 
       LLK_coef[0] = eta00;
       LLK_coef[1] = eta10;
@@ -140,47 +140,69 @@ void JPEX0(double *Z, int *nin, int *kin, double *alphain, double *sigmain, doub
       LLK_mat[7] = A11;
       LLK_mat[8] = A02;
       matsolve(LLK_mat, LLK_coef, &p, &nc);
-      rssa = S00 + LLK_coef[0] * LLK_coef[0] * A00 + LLK_coef[1] * LLK_coef[1] * A20 + LLK_coef[2] * LLK_coef[2] * A02 - 2 * (LLK_coef[0] * eta00 + LLK_coef[1] * eta10 + LLK_coef[2] * eta01) + 2 * (LLK_coef[0] * LLK_coef[1] * A10 + LLK_coef[0] * LLK_coef[2] * A01 + LLK_coef[1] * LLK_coef[2] * A11);
+      rssa = S00 + LLK_coef[0] * LLK_coef[0] * A00 + LLK_coef[1] * LLK_coef[1] * A20 + LLK_coef[2] * LLK_coef[2] * A02
+	- 2 * (LLK_coef[0] * eta00 + LLK_coef[1] * eta10 + LLK_coef[2] * eta01)
+	+ 2 * (LLK_coef[0] * LLK_coef[1] * A10 + LLK_coef[0] * LLK_coef[2] * A01 + LLK_coef[1] * LLK_coef[2] * A11);
 
       EDGE[(i - k) * n + (j - k)] = (rss0 - rssa)/sigma2;
       Ttilde[(i - k) * n + (j - k)] = LCK_coef[0];
-      
+
     }
   }
 
 
   /* Extrapolate from sharp pixels. */
 
-  dist = (double *)malloc((2 * rex + 1) * (2 * rex + 1) * sizeof(double));
+  /* dist = (double *)malloc((2 * rex + 1) * (2 * rex + 1) * sizeof(double)); */
+  
+  dist = (double *)malloc(n * n * sizeof(double));
+  for (i1 = 0; i1 < (n * n); i1++) {
+    dist[i1] = INFINITY;
+  }
   
   for (i = 0; i < n; i++) {
     for (j = 0; j < n; j++) {
       
-      for (i1 = 0; i1 < ((2 * rex + 1) * (2 * rex + 1)); i1++) {
-	dist[i1] = INFINITY;
-      }
+      /* for (i1 = 0; i1 < ((2 * rex + 1) * (2 * rex + 1)); i1++) { */
+      /* 	dist[i1] = INFINITY; */
+      /* } */
+      /* edge_stat = EDGE[i * n + j]; */
       
       if (EDGE[i * n + j] >= thresh) {
 
-  	for (i1 = 0; i1 < (2 * rex + 1); i1++) {
-  	  for (j1 = 0; j1 < (2 * rex + 1); j1++) {
+  	for (i1 = 0; i1 < n; i1++) {
+  	  for (j1 = 0; j1 < n; j1++) {
 
-	    if (i + rex - i1 < n && i + rex - i1 >= 0 && j + rex - j1>= 0 && j + rex -j1 < n) {
-  	      if (EDGE[(i + rex - i1) * n + (j + rex - j1)] < thresh) {
+	    if (EDGE[i1 * n + j1] < thresh) {
 
-		/* gsl_matrix_set(dist, i1, j1, 1.0*(rex-i1)*(rex-i1) + (rex-j1)*(rex-j1)); */
-		dist[i1 * (2 * rex + 1) + j1] = 1.0 * (rex - i1) * (rex - i1) + (rex - j1) * (rex - j1);
+	      dist[i1 * n + j1] = 1.0 * (i - i1) * (i - i1) + (j - j1) * (j - j1);
 
-	      }
-  	    }
+	    }
+
+	    /* if (i + rex - i1 < n && i + rex - i1 >= 0 && j + rex - j1>= 0 && j + rex -j1 < n) { */
+
+	    /*   itemp = i + rex - i1; */
+	    /*   jtemp = j + rex - j1; */
+  	    /*   if (EDGE[itemp * n + jtemp] < thresh) { */
+
+	    /* 	/\* gsl_matrix_set(dist, i1, j1, 1.0*(rex-i1)*(rex-i1) + (rex-j1)*(rex-j1)); *\/ */
+	    /* 	dist[i1 * (2 * rex + 1) + j1] = 1.0 * (rex - i1) * (rex - i1) + (rex - j1) * (rex - j1); */
+
+	    /*   } */
+  	    /* } */
   	  }
   	}
 
-	starLoc = minloc((2 * rex + 1) * (2 * rex + 1), dist);
-	istar = starLoc / (2 * rex + 1);
-	jstar = starLoc % (2 * rex + 1);
-	fhat[i * n + j] = Ttilde[(i + rex - istar) * n + (j + rex - jstar)];
+	/* starLoc = minloc((2 * rex + 1) * (2 * rex + 1), dist); */
+	/* istar = starLoc / (2 * rex + 1); */
+	/* jstar = starLoc % (2 * rex + 1); */
+	/* fhat[i * n + j] = Ttilde[(i + rex - istar) * n + (j + rex - jstar)]; */
 
+	starLoc = minloc(n * n, dist);
+	istar = starLoc / n;
+	jstar = starLoc % n;
+	fhat[i * n + j] = Ttilde[istar * n + jstar];
+	
       } else {
 
 	fhat[i * n + j] = Ttilde[i * n + j];
