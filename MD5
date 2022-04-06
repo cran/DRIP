@@ -1,4 +1,4 @@
-b4e3f12241f0254864715c07028a0e4e *DESCRIPTION
+ee54c62be1de4db673e9b9f96b36ea4f *DESCRIPTION
 791c2a0c9741028f968bb07877578eaf *NAMESPACE
 7bb70106b27cff6d85a5690933e5babb *R/JPLLK_surface.r
 7cfc8954fe17ed311ace3aaa4a3074d0 *R/cv.jpex.R
@@ -25,12 +25,12 @@ ea7d34320b73d10268f791ef8f4a7467 *R/stepEdgeLLK.r
 5aa80f78107531946e0eeff4c87cba53 *R/surfaceCluster_bandwidth.r
 8c2295b3e6c397f71b6a7db0e35c9b7d *R/threeStage.r
 47ecc544577dd7083651b630d55b52a4 *R/threeStageParSel.r
-41580f8325122489d121d7b4faa40b90 *data/brain.RData
-e6d1b48f4b2b3a20eb86305a22eb65bc *data/circles.RData
-109fca9eea83df79fbccd0243d7f3329 *data/kid.RData
+7ff5aaaebb75dc9a1c13fc9d4fe10cae *data/brain.RData
+033942b92240b21d365cda1a75fa4b70 *data/circles.RData
+4754da4ad8a7e0cc2ced20566d41f4ee *data/kid.RData
 d19e7a4df0058854d12c101a54bf07db *data/lena.RData
 52aecc7457e9126cfe6be8302bb9dbf4 *data/peppers.RData
-c3db370b3361323ec35d20c8cbf9e2ae *data/sar.RData
+b05830c23773929ca1fc49adc14f64e4 *data/sar.RData
 0a7ba3effd2f37622480fb1716a70c52 *data/stopsign.RData
 5503dda0b9bbddec07200623c27418a6 *man/JPLLK_surface.Rd
 e56ef14f5de4c9c9cf28868a99d68568 *man/brain.Rd
@@ -67,7 +67,7 @@ bfa200ca5b41a44168c3897380036a12 *man/threeStage.Rd
 ac451028e47fd2500a5ddc760d83898b *src/JPEX0.c
 bd05f0becc0a085c96726f3e22bbad19 *src/LMF.f90
 964bd924a8ad28b88242c387834fd56a *src/LOOCV.c
-2a6f9e9e044a78154d3cfda5936d6f48 *src/Makevars
+46f738caa7dce8be18d7b613db9b919f *src/Makevars
 0aec5f7ea71bcf2e97443e2dd6ba78f1 *src/cluster_cwm_deblur.f90
 fb13a7ef0f516168bb0de4860b53fdb3 *src/cluster_cwm_deblur_bandwidth.f90
 89fe88724b0c99dcd1803b625128d56b *src/cluster_cwm_denoise.f90
@@ -92,7 +92,7 @@ b195c5afe401317a42f529015efcc3dd *src/lc2k_diff.f90
 fba9b8268be2047b37fdfee7d39f8617 *src/lck_diff.f90
 23e6b962d6f17dac0f1f82e85c9d970f *src/ll2k_diff.f90
 6296de9172d5590b19dbeda28e96d843 *src/llk_diff.f90
-36653559585451c30051093b77064df7 *src/matalg.c
+6db100bb193b168257a3afd692258ba7 *src/matalg.c
 253deb456322f44ce31b9f66f96ff7b3 *src/median.f90
 35ff094d2bd1abe665b4c9f62666b43d *src/modify1.f90
 0e350f7abd556bb4237c9f469eb8a121 *src/modify2.f90
