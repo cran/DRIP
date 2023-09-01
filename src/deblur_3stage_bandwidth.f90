@@ -30,8 +30,9 @@ subroutine deblur_3stage_bandwidth(n, obsImg, nband, bandwidth, edge1, edge2, &
        fboot(0:(n+2*maxval(bandwidth)), 0:(n+2*maxval(bandwidth))), llkbw(1:7), aa, msecv(1:nband), optb1, obsImg(0:n, 0:n), &
        u_temp, v_temp
 
-  external :: extend, extend1, ker, ker1, surfest
-
+  external :: extend, extend1, ker, ker1, surfest, rndstart, rndend
+  double precision :: myrunif
+  external :: myrunif
 
   !! Read in data. Initialize fbhat and residuals.
 
@@ -611,7 +612,7 @@ subroutine deblur_3stage_bandwidth(n, obsImg, nband, bandwidth, edge1, edge2, &
      !! Repeat deblurring procedure with bootstrap data.
      !! Set seed for random number generator.
 
-     !call srand(1010)
+     call rndstart()
 
      do i3 = 1, nboot
 
@@ -620,8 +621,10 @@ subroutine deblur_3stage_bandwidth(n, obsImg, nband, bandwidth, edge1, edge2, &
         do i = 0, n
            do j = 0, n
 
-              call random_number(u_temp)
-              call random_number(v_temp)
+              !call random_number(u_temp)
+              !call random_number(v_temp)
+              u_temp = myrunif(0D0, 1D0)
+              v_temp = myrunif(0D0, 1D0)
               u = int(u_temp * dble(n+1))
               v = int(v_temp * dble(n+1))
               !u = int(dble(rand(0)) * dble(n + 1))
@@ -1137,6 +1140,8 @@ subroutine deblur_3stage_bandwidth(n, obsImg, nband, bandwidth, edge1, edge2, &
         end do
 
      end do !! End boostrap loop.
+
+     call rndend()
 
      mse(i2) = mse(i2)/dble(nedge)/dble(nboot)
      cv(i2) = cv(i2)/dble((n + 1)**2 - nedge)/dble(nboot)

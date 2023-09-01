@@ -10,7 +10,7 @@
 
 Subroutine extend(n,k,z,z1)
 
-  INTEGER :: n,k
+  INTEGER :: i, j, n,k
   DOUBLE PRECISION :: z(0:n,0:n),z1(0:(n+2*k),0:(n+2*k))
 
   do i=k,k+n

@@ -31,8 +31,8 @@ corresponding to each combination of bandwdith and threshold.}
 \examples{
 data(sar) # SAR image is bundled with the package and it is a
           # standard test image in statistics literature.
-#parSel = stepEdgeParSelLL2K(image=sar, bandwidth=5:6, thresh=
-#20:21, nboot = 10) # Time consuming
+set.seed(24)
+parSel <- stepEdgeParSelLL2K(image = sar, bandwidth = 5, thresh = 20:21, nboot = 1) # Time consuming
 }
 \references{
 Kang, Y., and Qiu, P., "Jump Detection in Blurred Regression 

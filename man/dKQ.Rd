@@ -18,8 +18,8 @@
 	are two point sets, and \eqn{d_E} denotes the Euclidean distance.
 }
 \examples{
-mat1 = matrix(c(1, rep(0, 3)), ncol = 2)
-mat2 = matrix(c(rep(0, 3), 1), ncol = 2)
+mat1 <- matrix(c(1, rep(0, 3)), ncol = 2)
+mat2 <- matrix(c(rep(0, 3), 1), ncol = 2)
 dKQ(mat1, mat2)
 }
 

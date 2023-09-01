@@ -30,7 +30,7 @@ blur = FALSE, plot = FALSE)}
 }
 \examples{
 data(brain) 
-fit = surfaceCluster(image=brain, bandwidth=4, sig.level=.9995, cw=3, blur=TRUE)
+fit <- surfaceCluster(image=brain, bandwidth=4, sig.level=.9995, cw=3, blur=TRUE)
 }
 \references{
 Kang, Y., Mukherjee, P.S., and Qiu, P. (2017), "Efficient Blind Image

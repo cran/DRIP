@@ -26,7 +26,7 @@
 }
 \examples{
 data(brain) 
-bandwidth_select = surfaceCluster_bandwidth(image=brain,
+bandwidth_select <- surfaceCluster_bandwidth(image=brain,
 bandwidths=c(3:4), sig.level=.9995, blur=TRUE)
 }
 \references{

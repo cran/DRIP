@@ -33,6 +33,9 @@ subroutine roofEdgeParSel_denoise(n, obsImg, nband, bandwidth, nthresh, thresh, 
 
   external :: JP_LLK_CV, roofDiff_denoise, d_KQ, extend1
 
+  external :: rndstart, rndend
+  double precision :: myrunif
+  external :: myrunif
 
   !! Read in data. Initialize fbhat, residuals and dKQ distances.
 
@@ -122,13 +125,17 @@ subroutine roofEdgeParSel_denoise(n, obsImg, nband, bandwidth, nthresh, thresh, 
 
      !! Roof/Valley edge detection on the bootstrap sample
 
+     call rndstart()
+
      do iboot = 1, nboot
 
         do i = 0, n
            do j = 0, n
 
-              call random_number(u_temp)
-              call random_number(v_temp)
+              !call random_number(u_temp)
+              !call random_number(v_temp)
+              u_temp = myrunif(0D0, 1D0)
+              v_temp = myrunif(0D0, 1D0)
               u = int(u_temp * dble(n+1))
               v = int(v_temp * dble(n+1))
               bootImg(i, j) = fbhat(i, j) + resid(u, v)
@@ -182,6 +189,8 @@ subroutine roofEdgeParSel_denoise(n, obsImg, nband, bandwidth, nthresh, thresh, 
         end do
 
      end do
+
+     call rndend()
 
   end do
 

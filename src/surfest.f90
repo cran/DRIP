@@ -19,7 +19,7 @@ subroutine surfest(n, data, bandw, llkbw, sigma, fitted, resid, optb1)
 
   integer, parameter :: ext_size = 20
   
-  double precision :: data(0:n, 0:n), z(0:n, 0:n), z1(0:(n+ext_size), 0:(n+ext_size)), &
+  double precision :: data(0:n, 0:n), z(0:n, 0:n), z1(0:(n+ 2*ext_size), 0:(n+2*ext_size)), &
        fbhat(0:(n+ext_size), 0:(n+ext_size)), sigma, resid(0:n, 0:n), optb1, &
        fitted(0:n, 0:n), cv(1:bandw), r00,   &
        r10, r01, r11, r02, r20, det1, det2, det3, det, ra,  &

@@ -1,4 +1,7 @@
-#define USE_FC_LEN_T
+#ifndef USE_FC_LEN_T
+# define USE_FC_LEN_T
+#endif
+#include <Rconfig.h> // included by R.h, so define USE_FC_LEN_T early
 
 #include <R.h>
 #include <math.h>

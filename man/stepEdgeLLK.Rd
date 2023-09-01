@@ -35,7 +35,7 @@
 \examples{
 data(sar) # SAR image is bundled with the package and it is a 
           # standard test image in statistics literature.
-edge = stepEdgeLLK(image = sar, bandwidth = 9, thresh = 17)
+edge <- stepEdgeLLK(image = sar, bandwidth = 9, thresh = 17)
 }
 \references{
 Kang, Y., and Qiu, P., "Jump Detection in Blurred Regression 

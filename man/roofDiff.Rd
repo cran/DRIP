@@ -44,7 +44,7 @@
 }
 \examples{
 	data(peppers) 
-	#diff = roofDiff(image = peppers, bandwidth = 8) # Time consuming
+	#diff <- roofDiff(image = peppers, bandwidth = 8) # Time consuming
 }
 
 \references{

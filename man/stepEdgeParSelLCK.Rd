@@ -31,8 +31,8 @@
 \examples{
 data(sar) # SAR image is bundled with the package and it is a
           # standard test image in statistics literature.
-#parSel = stepEdgeParSelLCK(image=sar, bandwidth=4:5, thresh=
-#19:20, nboot=10) # Time consuming 
+set.seed(24)
+parSel <- stepEdgeParSelLCK(image = sar, bandwidth = 4, thresh = 19:20, nboot = 1)
 }
 \references{
 Kang, Y., and Qiu, P., "Jump Detection in Blurred Regression 

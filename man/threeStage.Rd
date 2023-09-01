@@ -42,10 +42,9 @@ blur = FALSE, plot = FALSE)}
 }
 \examples{
 data(sar)
-stepEdge = stepEdgeLCK(sar, bandwidth=4, thresh=20)
-stepEdge1 = modify2(bandwidth=4, stepEdge)
-fit = threeStage(image=sar, bandwidth=4, edge1=
-stepEdge1, edge2=array(0, rep(ncol(sar), 2)))
+stepEdge <- stepEdgeLCK(sar, bandwidth=4, thresh=20)
+stepEdge1 <- modify2(bandwidth=4, stepEdge)
+fit <- threeStage(image=sar, bandwidth=4, edge1=stepEdge1, edge2=array(0, rep(ncol(sar), 2)))
 }
 \references{
 Qiu, P., and Kang, Y. "Blind Image Deblurring Using Jump Regression

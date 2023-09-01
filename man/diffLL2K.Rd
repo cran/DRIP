@@ -33,7 +33,7 @@
 \examples{
 data(sar) # SAR image is bundled with the package and it is a 
           # standard test image in statistics literature.
-diff = diffLL2K(image = sar, bandwidth = 6)
+diff <- diffLL2K(image = sar, bandwidth = 6)
 }
 
 \references{

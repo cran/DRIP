@@ -31,8 +31,8 @@
 \examples{
 data(sar) # SAR image is bundled with the package and it is a 
           # standard test image in statistics literature.
-edge = stepEdgeLCK(sar, 4, 20)
-out = modify1(4, sar, edge)
+edge <- stepEdgeLCK(sar, 4, 20)
+out <- modify1(4, sar, edge)
 }
 
 \references{

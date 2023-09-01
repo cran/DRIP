@@ -43,8 +43,8 @@
 \examples{
 data(peppers)
 # Not run
-#step.edges = stepEdgeLLK(peppers, bandwidth=6, thresh=25, plot=FALSE)
-#roof.edges = roofEdge(image=peppers, bandwidth=9, thresh=3000, edge1=step.edges,
+#step.edges <- stepEdgeLLK(peppers, bandwidth=6, thresh=25, plot=FALSE)
+#roof.edges <- roofEdge(image=peppers, bandwidth=9, thresh=3000, edge1=step.edges,
 #     blur=FALSE, plot=FALSE) # Time consuming
 #edges = step.edges + roof.edges     
 #par(mfrow=c(2,2))
