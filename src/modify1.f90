@@ -12,8 +12,8 @@
     SUBROUTINE modify1(n,k,bound,z,edge)
 
     integer :: n, k, k1, i, j, bound, loc1, loc2
-    integer :: edge(0:600,0:600)
-    double precision :: z(0:600,0:600)
+    integer :: edge(0:n + 2 * bound, 0:n + 2 * bound)
+    double precision :: z(0:n + 2 * bound, 0:n + 2 * bound)
     double precision :: beta0(0:n+2*bound,0:n+2*bound)
     double precision :: beta1(0:n+2*bound,0:n+2*bound)
     double precision :: beta2(0:n+2*bound,0:n+2*bound)

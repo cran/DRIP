@@ -8,7 +8,7 @@
 
 subroutine modify2(n, k, bound, edge)
 
-  integer :: i, j, i1, j1, n, k, k1, sum, bound, edge(0:600, 0:600)
+  integer :: i, j, i1, j1, n, k, k1, sum, bound, edge(0:n + 2 * bound, 0:n + 2 * bound)
 
   k1 = (k + 1)/2
 

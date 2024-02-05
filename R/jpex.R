@@ -26,8 +26,8 @@ jpex <- function(image, bandwidth, alpha, sigma) {
     z <- as.double(t(image))
     edge <- double(n1 * n1)
     fhat <- double(n1 * n1)
-    out <- .C("JPEX0", Z = z, nin = n1, kin = as.integer(bandwidth), alphain = as.double(alpha), sigmain = as.double(sigma),
-             EDGE = edge, fhat = fhat, package = "DRIP")
+    out <- .C(C_JPEX0, Z = z, nin = n1, kin = as.integer(bandwidth), alphain = as.double(alpha), sigmain = as.double(sigma),
+             EDGE = edge, fhat = fhat)
     fhat <- matrix(out$fhat, nrow = n1, byrow = TRUE)
     edge <- matrix(out$EDGE, nrow = n1, byrow = TRUE)
     return(list(deblurred = fhat, edge = edge))

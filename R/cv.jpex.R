@@ -3,7 +3,7 @@ onecv.jpex <- function(image, bandwidth) {
   z <- as.double(c(t(image)))
   LLK <- double(n1 * n1)
   k <- as.integer(bandwidth)
-  out <- .C("LOOCV", Zin = z, nin = n1, kin = k, LLK = LLK, cv = as.double(0))
+  out <- .C(C_LOOCV, Zin = z, nin = n1, kin = k, LLK = LLK, cv = as.double(0))
   return(out$cv)
 }
 
@@ -27,7 +27,7 @@ cv.jpex <- function(image, bandwidths, ncpus = 1) {
   z <- as.double(c(t(image)))
   LLK <- double(n1 * n1)
   band.min <- as.integer(bandwidths[which.min(cvs)])
-  out <- .C("LOOCV", Zin = z, nin = n1, kin = band.min, LLK = LLK, cv = as.double(0))
+  out <- .C(C_LOOCV, Zin = z, nin = n1, kin = band.min, LLK = LLK, cv = as.double(0))
   LLK <- out$LLK
   sigma <- sqrt(mean((z - LLK)^2))
   LLK <- matrix(LLK, nrow = n1, byrow = TRUE)

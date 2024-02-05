@@ -19,7 +19,7 @@ void LOOCV(double *Z, int *nin, int *kin, double *LLK, double *cv) {
   /* Extend the observed image to avoid boundary problems. */
 
   Z1 = (double *)malloc((n + 2 * k) * (n + 2 * k) * sizeof(double));
-  extend(nin, kin, Z, Z1);
+  extend_c(nin, kin, Z, Z1);
 
   /* Compute common quantities. */
 

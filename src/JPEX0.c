@@ -40,7 +40,7 @@ void JPEX0(double *Z, int *nin, int *kin, double *alphain, double *sigmain, doub
   /* Extend the observed image to avoid boundary problems. */
 
   Z1 = (double *)malloc((n + 2 * k) * (n + 2 * k) * sizeof(double));
-  extend(nin, kin, Z, Z1);
+  extend_c(nin, kin, Z, Z1);
 
   /* Flag blurry pixels. */
 
@@ -59,7 +59,7 @@ void JPEX0(double *Z, int *nin, int *kin, double *alphain, double *sigmain, doub
     for (j1 = (j - k); j1 <= (j + k); j1++){
 
       if (((i1 - i) * (i1 - i) + (j1 - j) * (j1 - j)) <= (k * k)) {
-	dy = -(i1 - i)/(1.0 * n); /* Recall the way a matrix from R is stacked in C and the way an image is expressed in terms of x and y. */
+	dy = (i1 - i)/(1.0 * n); /* Recall the way a matrix from R is stacked in C and the way an image is expressed in terms of x and y. */
 	dx = (j1 - j)/(1.0 * n);
 	temp = ker(dx/h, dy/h);
 	A00 = A00 + temp;
@@ -82,6 +82,10 @@ void JPEX0(double *Z, int *nin, int *kin, double *alphain, double *sigmain, doub
   LLK_mat[6] = A01;
   LLK_mat[7] = A11;
   LLK_mat[8] = A02;
+
+  /* Rprintf("%f, %f, %f \n", A00, A10, A01); */
+  /* Rprintf("%f, %f, %f \n", A10, A20, A11); */
+  /* Rprintf("%f, %f, %f \n", A01, A11, A02); */
 
   if (fabs(A00) < small_number) {
     error("The bandwidth is too small for LCK smoothing. \n");
@@ -113,12 +117,12 @@ void JPEX0(double *Z, int *nin, int *kin, double *alphain, double *sigmain, doub
       for (i1 = (i - k); i1 <= (i + k); i1++) {
 	for (j1 = (j - k); j1 <= (j + k); j1++) {
 	  if (((i1 - i) * (i1 - i) + (j1 - j) *(j1 - j)) <= (k * k)) {
-	    dy = -(i1 - i)/(1.0 * n); /* Recall the way a matrix from R is stacked in C and the way an image is expressed in terms of x and y. */
+	    dy = (i1 - i)/(1.0 * n); /* Recall the way a matrix from R is stacked in C and the way an image is expressed in terms of x and y. */
 	    dx = (j1 - j)/(1.0 * n);
 	    temp = Z1[i1 * (n + 2 * k) + j1] * ker(dx/h, dy/h);
 	    S00 = S00 + Z1[i1 * (n + 2 * k) + j1] * temp;
 	    eta00 = eta00 + temp;
-	    eta10 = eta10 * dx * temp;
+	    eta10 = eta10 + dx * temp;
 	    eta01 = eta01 + dy * temp;
 	  }
 	}
@@ -140,8 +144,8 @@ void JPEX0(double *Z, int *nin, int *kin, double *alphain, double *sigmain, doub
       LLK_mat[7] = A11;
       LLK_mat[8] = A02;
       matsolve(LLK_mat, LLK_coef, &p, &nc);
-      rssa = S00 + LLK_coef[0] * LLK_coef[0] * A00 + LLK_coef[1] * LLK_coef[1] * A20 + LLK_coef[2] * LLK_coef[2] * A02
-	- 2 * (LLK_coef[0] * eta00 + LLK_coef[1] * eta10 + LLK_coef[2] * eta01)
+      rssa = S00 + LLK_coef[0] * LLK_coef[0] * A00 + LLK_coef[1] * LLK_coef[1] * A20 + LLK_coef[2] * LLK_coef[2] * A02 \
+	- 2 * (LLK_coef[0] * eta00 + LLK_coef[1] * eta10 + LLK_coef[2] * eta01) \
 	+ 2 * (LLK_coef[0] * LLK_coef[1] * A10 + LLK_coef[0] * LLK_coef[2] * A01 + LLK_coef[1] * LLK_coef[2] * A11);
 
       EDGE[(i - k) * n + (j - k)] = (rss0 - rssa)/sigma2;
@@ -156,9 +160,7 @@ void JPEX0(double *Z, int *nin, int *kin, double *alphain, double *sigmain, doub
   /* dist = (double *)malloc((2 * rex + 1) * (2 * rex + 1) * sizeof(double)); */
   
   dist = (double *)malloc(n * n * sizeof(double));
-  for (i1 = 0; i1 < (n * n); i1++) {
-    dist[i1] = INFINITY;
-  }
+  
   
   for (i = 0; i < n; i++) {
     for (j = 0; j < n; j++) {
@@ -169,6 +171,10 @@ void JPEX0(double *Z, int *nin, int *kin, double *alphain, double *sigmain, doub
       /* edge_stat = EDGE[i * n + j]; */
       
       if (EDGE[i * n + j] >= thresh) {
+
+	for (i1 = 0; i1 < (n * n); i1++) {
+	  dist[i1] = INFINITY;
+	}
 
   	for (i1 = 0; i1 < n; i1++) {
   	  for (j1 = 0; j1 < n; j1++) {

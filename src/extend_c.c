@@ -1,6 +1,6 @@
 #include <R.h>
 
-void extend(int *n_in, int *k_in, double *M, double *M1){
+void extend_c(int *n_in, int *k_in, double *M, double *M1){
   int n = n_in[0];
   int k = k_in[0];
   int i, j;
