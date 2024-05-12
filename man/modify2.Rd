@@ -1,43 +1,39 @@
 \name{modify2}
 \alias{modify2}
-\keyword{second-type modification}
-\title{Edge detection, post processing}
-\description{Delete deceptive edge pixels that are scattered
-  in the design space.}
+\title{Type-2 Modification Procedure}
+\description{
+   Delete deceptive edge pixels that are scattered in the design space.
+}
 \usage{modify2(bandwidth, edge, plot)}
 \arguments{
-  \item{bandwidth}{A positive integer to specify the number of
-    pixels used in the local smoothing.}
-  \item{edge}{A matrix of 0 and 1 represents detected edge 
-    pixels. }
-  \item{plot}{If plot = TRUE, images of detected edges before
-  the modification and after the modification are plotted.}
+    \item{bandwidth}{A positive integer that specifies the number of
+    pixels to use in the local smoothing.}
+    \item{edge}{A matrix of 0 and 1 representing the detected edge 
+    pixels.}
+    \item{plot}{If plot = TRUE, images of the detected edges before
+    and after the modification are plotted.}
 }
-\value{Returns a matrix of zeros and ones of the same size as
-  edge.}
-
+\value{
+    A matrix of zeros and ones of the same size as the input image.
+}
 \details{
-	A local-smoothing based edge detection algorithm may flag deceptive edge
-	pixel candidates. One kind of such candidates existis due to the nature of hypothesis
-	testing, on which the threshold value of the edge detection criterion is
-	based. That is, a point \eqn{(x_i, y_j)} could be flagged as a edge
-	pixel with certain probability, even if it is actually not a edge pixel.
-	Deceptive candidates of this kind are scattered in the whole design
-	space. This modification procedure deletes scattered edge pixel candidates.
+    A local-smoothing based edge detection algorithm may flag deceptive edge
+    pixel candidates. One kind of such candidates existis due to the nature of hypothesis
+    testing, on which the threshold value of the edge detection criterion is
+    based. That is, a point \eqn{(x_i, y_j)} could be flagged as a edge
+    pixel with certain probability, even if it is actually not a edge pixel.
+    Deceptive candidates of this kind are scattered in the whole design
+    space. This modification procedure deletes scattered edge pixel candidates.
 }
-
 \seealso{
-	\code{\link{modify1}}
+    \code{\link{modify1}}
 }
 \examples{
-data(sar) # SAR image is bundled with the package and it is a 
-          # standard test image in statistics literature.
-edge <- stepEdgeLCK(sar, 4, 20)
+edge <- stepEdge(sar, bandwidth = 4, thresh = 20, degree = 0)
 out <- modify2(4, edge)
 }
-
 \references{
-Qiu, P. and Yandell, B., "Jump detection in regression surfaces,"
-\emph{Journal of Computational and Graphical Statistics} \bold{6(3)}, 1997,
-332-354.
+Qiu, P. and Yandell, B. (1997) "Jump Detection in Regression Surfaces,"
+\emph{Journal of Computational and Graphical Statistics} \bold{6(3)},
+332-354, \doi{10.1080/10618600.1997.10474746}.
 }

@@ -5,15 +5,15 @@
 
 modify1 <- function(bandwidth, image, edge, plot = FALSE){
   obsImg <- image
-  if (!is.matrix(obsImg) | dim(obsImg)[1] != dim(obsImg)[2])
+  if (!is.matrix(obsImg) || dim(obsImg)[1] != dim(obsImg)[2])
     stop('obsImg must be a square matrix') 
-  if (!is.matrix(edge) | dim(edge)[1] != dim(edge)[2])
+  if (!is.matrix(edge) || dim(edge)[1] != dim(edge)[2])
     stop('edge must be a square matrix')
   if (length(edge[(edge != 0) & (edge != 1)]) >= 1)
     stop('edge can only have entry equal to 0 or 1')
   if (dim(obsImg)[1] != dim(edge)[1])
     stop('obsImg and edge must have the same size')
-  if (!is.numeric(bandwidth) | length(bandwidth) > 1 |
+  if (!is.numeric(bandwidth) || length(bandwidth) > 1 || 
       as.integer(bandwidth) < 1)
     stop('bandwidth must be a positive integer')
   n1 <- dim(edge)[1]

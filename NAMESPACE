@@ -1,11 +1,8 @@
 useDynLib("DRIP", .registration = TRUE, .fixes = "C_")
 
-export(stepEdgeLCK, JPLLK_surface, diffLCK, diffLC2K, dKQ,
-       stepEdgeParSelLCK, stepEdgeParSelLC2K, diffLLK,
-       stepEdgeLC2K, stepEdgeLLK, stepEdgeParSelLLK,
-       diffLL2K, stepEdgeLL2K, stepEdgeParSelLL2K, modify1,
-       modify2, surfaceCluster, surfaceCluster_bandwidth,
-       roofDiff, roofEdge, roofEdgeParSel, 
-       threeStage, threeStageParSel, cv.jpex, jpex)
+export(stepDiff, stepEdge, stepEdgeParSel, JPLLK_surface, dKQ,
+       surfaceCluster, surfaceCluster_bandwidth, roofDiff,
+       roofEdge, roofEdgeParSel, threeStage, threeStageParSel,
+       cv.jpex, jpex, modify1, modify2)
 import(parallel, graphics, stats)
 importFrom("grDevices", "gray")

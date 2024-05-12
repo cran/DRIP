@@ -1,10 +1,13 @@
 \name{roofEdgeParSel}
 \alias{roofEdgeParSel}
-\keyword{parameter selection in roofEdge}
-\title{roof/valley edge detection, parameter selection}
-\description{Select bandwidth and threshold value for the roof/valley edge detector
-  using bootstrap procedure}
-\usage{roofEdgeParSel(image, bandwidth, thresh, nboot, edge1, blur=FALSE)}
+\title{Parameter Selection in Roof Edge Detection}
+\description{
+    Select bandwidth and threshold value for the roof/valley edge detector
+    using bootstrap.
+}
+\usage{
+roofEdgeParSel(image, bandwidth, thresh, nboot, edge1, blur = FALSE)
+}
 \arguments{
   \item{image}{A square matrix object of size n by n, no
     missing value allowed.}
@@ -33,16 +36,15 @@ of bandwdith and threshold.}
 	\code{\link{roofDiff}}, \code{\link{roofEdge}}
 }
 \examples{
-# Not Run
-#data(peppers) # Peppers image is bundled with the package and it is a
-              # standard test image in image processing literature.
-#step.edges <- stepEdgeLLK(image = peppers, bandwidth = 9, thresh = 17, plot = FALSE)
-#set.seed(24)
-#parSel <- roofEdgeParSel(image = peppers, bandwidth = 5, thresh = 5000,
-#nboot = 1, edge1 = step.edges, blur = TRUE) # Time Consuming
+\dontrun{
+step.edges <- stepEdge(peppers, bandwidth = 9, thresh = 17)
+set.seed(24)
+parSel <- roofEdgeParSel(image = peppers, bandwidth = 5, thresh = 5000,
+    nboot = 1, edge1 = step.edges, blur = TRUE) # Time Consuming
 }
-
+}
 \references{
-Qiu, P., and Kang, Y. "Blind Image Deblurring Using Jump Regression
-Analysis," \emph{Statistica Sinica}, \bold{25}, 2015, 879-899.
+Qiu, P. and Kang, Y. (2015) ``Blind Image Deblurring Using Jump Regression
+Analysis'', \emph{Statistica Sinica}, \bold{25}, 879-899,
+\doi{10.5705/ss.2014.054}
 }  

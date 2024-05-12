@@ -3,7 +3,7 @@
 # Creator: Yicheng Kang
 # Date: Sep 13, 2015
 
-roofEdgeParSel <- function(image, bandwidth, thresh, nboot, edge1, blur=FALSE) {
+roofEdgeParSel <- function(image, bandwidth, thresh, nboot, edge1, blur = FALSE) {
   if (!is.matrix(image))
     stop("image data must be a matrix")
   n1 <- as.integer(dim(image)[1])
@@ -22,12 +22,12 @@ roofEdgeParSel <- function(image, bandwidth, thresh, nboot, edge1, blur=FALSE) {
 # of the image is too high.")
   if (!is.numeric(thresh))
     stop("threshold must be numeric")
-  if ((!is.numeric(nboot)) | (length(nboot) > 1) |
+  if ((!is.numeric(nboot)) || (length(nboot) > 1) ||
       (as.integer(nboot) < 1))
     stop('nboot must be a positive integer.')
-  if(!is.matrix(edge1) | ncol(edge1) != nrow(edge1))
+  if(!is.matrix(edge1) || ncol(edge1) != nrow(edge1))
     stop("edge1 must be a square matrix")
-  if(!all(edge1==0 | edge1==1))
+  if(!all(edge1 == 0 | edge1 == 1))
     stop("edge1's must be either 0 or 1.")
   if(ncol(edge1) != n1)
     stop("edge1 and image are not of the same size.")

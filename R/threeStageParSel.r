@@ -3,7 +3,7 @@
 # Date: Aug 30, 2015
 # Creator: Yicheng Kang
 
-threeStageParSel <- function(image, bandwidth, edge1, edge2, nboot, blur=FALSE){
+threeStageParSel <- function(image, bandwidth, edge1, edge2, nboot, blur = FALSE){
   if (!is.matrix(image)) {
     stop("image data must be a matrix")
   } else {
@@ -19,15 +19,15 @@ threeStageParSel <- function(image, bandwidth, edge1, edge2, nboot, blur=FALSE){
 # image is too large")
   n1 <- dim(image)[1]
   z <- matrix(as.double(image), ncol = n1)
-  edge1 <- matrix(as.integer(edge1), ncol=n1)
-  edge2 <- matrix(as.integer(edge2), ncol=n1)
+  edge1 <- matrix(as.integer(edge1), ncol = n1)
+  edge2 <- matrix(as.integer(edge2), ncol = n1)
   n_band <- length(bandwidth)
   if (blur == FALSE) {
-    out <- .Fortran(C_denoise_3stage_bandwidth, n=as.integer(n1-1), obsImg=z, nband=n_band,
-                    bandwidth=as.integer(bandwidth), edge1=edge1, edge2=edge2, cv=rep(as.double(0), n_band))
+    out <- .Fortran(C_denoise_3stage_bandwidth, n = as.integer(n1 - 1), obsImg = z, nband = n_band,
+                    bandwidth = as.integer(bandwidth), edge1 = edge1, edge2 = edge2, cv = rep(as.double(0), n_band))
     k.cv <- out$cv
     band_sel <- mean(bandwidth[k.cv ==  min(k.cv)])
-    out.mat <- matrix(0, ncol=n_band, nrow=1)
+    out.mat <- matrix(0, ncol = n_band, nrow = 1)
     out.mat[1, ] <- k.cv
     colnames(out.mat) <- paste('bandwidth=', bandwidth, sep='')
     rownames(out.mat) <- "CV-score"
@@ -39,18 +39,18 @@ threeStageParSel <- function(image, bandwidth, edge1, edge2, nboot, blur=FALSE){
     if (length(nboot) > 1)
       stop("nboot must be an integer number.")
     n_boot <- as.integer(nboot)
-    out <- .Fortran(C_deblur_3stage_bandwidth, n=as.integer(n1-1), obsImg=z, nband=n_band,
-                    bandwidth=as.integer(bandwidth), edge1=edge1, edge2=edge2, nboot=n_boot,
-                    msecv=rep(as.double(0), n_band))
+    out <- .Fortran(C_deblur_3stage_bandwidth, n = as.integer(n1 - 1), obsImg = z, nband = n_band,
+                    bandwidth = as.integer(bandwidth), edge1 = edge1, edge2 = edge2, nboot = n_boot,
+                    msecv = rep(as.double(0), n_band))
     k.msecv <- out$msecv
     band_sel <- mean(bandwidth[k.msecv ==  min(k.msecv)])
-    out.mat <- matrix(0, ncol=n_band, nrow=1)
+    out.mat <- matrix(0, ncol = n_band, nrow = 1)
     out.mat[1, ] <- k.msecv
     colnames(out.mat) <- paste('bandwidth=', bandwidth, sep='')
     rownames(out.mat) <- "MSECV-score"
   }
   
   print(paste('The selected bandwidth is', band_sel))
-  return(list(output_matrix=out.mat, selected_bandwidth=band_sel))
+  return(list(output_matrix = out.mat, selected_bandwidth = band_sel))
 }
 
