@@ -2,10 +2,8 @@ jpex <- function(image, bandwidth, alpha, sigma) {
     if (!is.matrix(image)) {
         stop("image data must be a matrix")
     }
-    else {
-        n1 <- dim(image)[1]
-        n2 <- dim(image)[2]
-    }
+    n1 <- dim(image)[1]
+    n2 <- dim(image)[2]
     if (n1 != n2)
         stop("image data must be a square matrix")
     if (!is.numeric(bandwidth))
@@ -22,12 +20,12 @@ jpex <- function(image, bandwidth, alpha, sigma) {
         stop("sigma must be numeric")
     if (sigma <= 0)
         stop("sigma must be positive")
-    n1 <- dim(image)[1]
     z <- as.double(t(image))
     edge <- double(n1 * n1)
     fhat <- double(n1 * n1)
-    out <- .C(C_JPEX0, Z = z, nin = n1, kin = as.integer(bandwidth), alphain = as.double(alpha), sigmain = as.double(sigma),
-             EDGE = edge, fhat = fhat)
+    out <- .C(C_JPEX0, Z = z, nin = n1, kin = as.integer(bandwidth),
+              alphain = as.double(alpha), sigmain = as.double(sigma),
+              EDGE = edge, fhat = fhat)
     fhat <- matrix(out$fhat, nrow = n1, byrow = TRUE)
     edge <- matrix(out$EDGE, nrow = n1, byrow = TRUE)
     return(list(deblurred = fhat, edge = edge))

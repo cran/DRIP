@@ -50,6 +50,7 @@ stepEdge1 <- modify2(bandwidth = 4, step.edges)
 fit <- threeStage(image = sar, bandwidth = 4, edge1 = stepEdge1,
     edge2 = array(0, rep(ncol(sar), 2)))
 }
+\author{Yicheng Kang}
 \references{
 Qiu, P. and Kang, Y. (2015) ``Blind Image Deblurring Using Jump 
 Regression Analysis'', \emph{Statistica Sinica}, \bold{25},

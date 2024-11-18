@@ -37,9 +37,9 @@
     \code{\link{roofEdgeParSel}}, \code{\link{roofEdge}}
 }
 \examples{
-data(peppers) 
-diff <- roofDiff(image = peppers, bandwidth = 8) # Time consuming
+diff <- roofDiff(image = peppers, bandwidth = 8)
 }
+\author{Yicheng Kang}
 \references{
 Qiu, P. and Kang, Y. (2015) "Blind Image Deblurring Using Jump Regression
 Analysis", \emph{Statistica Sinica}, \bold{25}, 879 -- 899,

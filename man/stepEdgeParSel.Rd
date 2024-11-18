@@ -44,6 +44,7 @@ set.seed(24)
 parSel <- stepEdgeParSel(image = sar, bandwidth = 5,
 thresh = c(17, 21), nboot = 1)
 }
+\author{Yicheng Kang}
 \references{
 Kang, Y. and Qiu, P. (2014) "Jump Detection in Blurred Regression 
 Surfaces," \emph{Technometrics}, \bold{56}(4), 539 -- 550,

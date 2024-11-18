@@ -4,5 +4,22 @@ export(stepDiff, stepEdge, stepEdgeParSel, JPLLK_surface, dKQ,
        surfaceCluster, surfaceCluster_bandwidth, roofDiff,
        roofEdge, roofEdgeParSel, threeStage, threeStageParSel,
        cv.jpex, jpex, modify1, modify2)
+
+S3method(print, Edge_Parameters)
+S3method(summary, Edge_Parameters)
+S3method(print, Surface_Cluster_Parameters)
+S3method(summary, Surface_Cluster_Parameters)
+S3method(plot, Surface_Cluster_Parameters)
+S3method(print, Three_Stage_Parameters)
+S3method(summary, Three_Stage_Parameters)
+S3method(plot, Three_Stage_Parameters)
+S3method(print, JPEX_Parameters)
+S3method(summary, JPEX_Parameters)
+S3method(plot, JPEX_Parameters)
+S3method(print, JPLLK_Parameters)
+S3method(summary, JPLLK_Parameters)
+S3method(plot, JPLLK_Parameters)
+
+
 import(parallel, graphics, stats)
 importFrom("grDevices", "gray")

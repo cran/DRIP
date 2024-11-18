@@ -32,6 +32,7 @@
 edge <- stepEdge(sar, bandwidth = 4, thresh = 20, degree = 0)
 out <- modify2(4, edge)
 }
+\author{Yicheng Kang}
 \references{
 Qiu, P. and Yandell, B. (1997) "Jump Detection in Regression Surfaces,"
 \emph{Journal of Computational and Graphical Statistics} \bold{6(3)},

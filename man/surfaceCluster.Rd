@@ -51,13 +51,13 @@ surfaceCluster(image, bandwidth, sig.level, sigma, phi0,
 \seealso{
     \code{\link{JPLLK_surface}}, \code{\link{threeStage}}
 }
-\examples{
-data(brain) 
+\examples{ 
 fit <- surfaceCluster(image = brain, bandwidth = 4,
-    sig.level = .9995, cw = 3, blur = TRUE)
+    sig.level = .9995, cw = 3, blur = FALSE)
 }
+\author{Yicheng Kang}
 \references{
-Kang, Y., Mukherjee, P.S. and Qiu, P. (2017) "Efficient Blind Image
+Kang, Y., Mukherjee, P.S. and Qiu, P. (2018) "Efficient Blind Image
 Deblurring Using Nonparametric Regression and Local Pixel 
 Clustering", \emph{Technometrics}, \bold{60}(4), 522 -- 531,
 \doi{10.1080/00401706.2017.1415975}.

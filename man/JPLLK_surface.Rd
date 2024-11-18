@@ -36,11 +36,11 @@ JPLLK_surface(image, bandwidth, plot = FALSE)
     \code{\link{threeStage}}, \code{\link{surfaceCluster}}
 }
 \examples{
-data(sar) # SAR image is bundled with the package and it is a 
-          # standard test image in statistics literature.
-fit <- JPLLK_surface(image=sar, bandwidth=c(3, 4))
+fit <- JPLLK_surface(image = sar, bandwidth = c(3, 4))
 }
-
+\author{Yicheng Kang}
 \references{
-Qiu, P. (2009) "Jump-Preserving Surface Reconstruction from Noisy Data", \emph{Annals of the Institute of Statistical Mathematics}, \bold{61}(3), 715 -- 751, \doi{10.1007/s10463-007-0166-9}.
+Qiu, P. (2009) "Jump-Preserving Surface Reconstruction from Noisy Data",
+\emph{Annals of the Institute of Statistical Mathematics}, \bold{61}(3),
+715 -- 751, \doi{10.1007/s10463-007-0166-9}.
 }

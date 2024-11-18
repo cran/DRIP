@@ -8,6 +8,7 @@
   observations are  listed as a 512x512 matrix.}
 \usage{peppers}
 \format{A matrix of 512x512 pixels.}
+\author{Yicheng Kang}
 \references{
 Kang, Y. (2020) ``Consistent Blind Image Deblurring Using
 Jump-Preserving Extrapolation'', \emph{Journal of Computational and

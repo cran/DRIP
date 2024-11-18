@@ -9,6 +9,7 @@
     x217 matrix. This image has blur involved.}
 \usage{brain}
 \format{A matrix containing 217x217 pixels.}
+\author{Yicheng Kang}
 \references{
     Kang, Y., Mukherjee, P.S. and Qiu, P. (2018) ``Efficient Blind
     Image Deblurring Using Nonparametric Regression and Local

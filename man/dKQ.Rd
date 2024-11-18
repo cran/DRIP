@@ -21,6 +21,7 @@ mat1 <- matrix(c(1, rep(0, 3)), ncol = 2)
 mat2 <- matrix(c(rep(0, 3), 1), ncol = 2)
 dKQ(mat1, mat2)
 }
+\author{Yicheng Kang}
 \references{
 Kang, Y. and Qiu, P., "Jump Detection in Blurred Regression 
 Surfaces," \emph{Technometrics}, \bold{56}, 2014, 539-550,

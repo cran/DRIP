@@ -1,7 +1,6 @@
 Package: DRIP
 License: GPL (>= 2)
-Version: 2.0
-Date: 2024-04-24
+Version: 2.2
 Description: A collection of functions that perform jump regression
 	     and image analysis such as denoising, deblurring and
 	     jump detection. The implemented methods are based on
@@ -19,9 +18,17 @@ Authors@R: c(person("Yicheng", "Kang", role = c("aut", "cre"),
 Author: Yicheng Kang [aut, cre],
   Peihua Qiu [aut, ctb]
 Maintainer: Yicheng Kang <kangyicheng0527@gmail.com>
-Depends: R (>= 3.5.0), parallel, graphics, stats
+Depends: R (>= 3.5.0)
+Imports: parallel, graphics, stats
+Encoding: UTF-8
 LazyData: true
 NeedsCompilation: yes
-Packaged: 2024-05-11 13:25:00 UTC; yicheng
+URL: https://miamioh.edu/fsb/directory/?up=/directory/kangy10,
+        https://github.com/kangy10/DRIP
+BugReports: https://github.com/kangy10/DRIP/issues
+Suggests: knitr, rmarkdown, testthat (>= 3.0.0)
+Config/testthat/edition: 3
+VignetteBuilder: knitr
+Packaged: 2024-11-18 17:30:02 UTC; yicheng
 Repository: CRAN
-Date/Publication: 2024-05-12 21:03:35 UTC
+Date/Publication: 2024-11-18 20:20:02 UTC

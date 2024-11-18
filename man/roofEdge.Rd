@@ -45,7 +45,6 @@ roofEdge(image, bandwidth, thresh, edge1, blur, plot)
     \code{\link{roofEdgeParSel}}, \code{\link{roofDiff}}
 }
 \examples{
-data(peppers)
 \dontrun{
 step.edges <- stepEdge(peppers, bandwidth = 6, thresh = 25, degree = 1)
 roof.edges <- roofEdge(image = peppers, bandwidth = 9, thresh = 3000,
@@ -58,6 +57,7 @@ image(1 - edges, col = gray(0:1))
 image(peppers, col = gray(c(0:255)/255))
 }
 }
+\author{Yicheng Kang}
 \references{
 Qiu, P. and Kang, Y. (2015) ``Blind Image Deblurring Using Jump 
 Regression Analysis'', \emph{Statistica Sinica}, \bold{25},

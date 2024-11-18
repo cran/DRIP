@@ -39,9 +39,10 @@ roof.edges <- roofEdge(peppers, bandwidth = 6, thresh = 3000,
 set.seed(24)
 # Time consuming
 parSel <- threeStageParSel(image = peppers, edge1 = step.edges,
-    edge2 = roof.edges, bandwidth = 4, nboot = 1, blur = TRUE) 
+    edge2 = roof.edges, bandwidth = 3:4, nboot = 1, blur = TRUE) 
 }
 }
+\author{Yicheng Kang}
 \references{
 Qiu, P. and Kang, Y. (2015) ``Blind Image Deblurring Using Jump 
 Regression Analysis'', \emph{Statistica Sinica}, \bold{25},

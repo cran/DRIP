@@ -9,6 +9,7 @@
     has spatially variant blur involved.}
 \usage{kid}
 \format{A matrix of 387x387 pixels.}
+\author{Yicheng Kang}
 \references{
     Kang, Y. and Qiu, P. (2014) "Jump Detection in Blurred 
     Regression Surfaces," \emph{Technometrics}, \bold{56}(4),

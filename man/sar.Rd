@@ -11,6 +11,7 @@
 \usage{sar}
 \format{A matrix of 250x250 pixels.}
 \source{\url{https://users.phhp.ufl.edu/pqiu/research/book/data/index.html}}
+\author{Yicheng Kang}
 \references{
     Qiu, P. (2005) \emph{Image Processing and Jump Regression
     Analysis}. New Jersey: Wiley.

@@ -8,4 +8,5 @@
   are listed as a 512x512 matrix.}
 \usage{lena}
 \format{A 512x512 matrix.}
+\author{Yicheng Kang}
 \source{ November 1972 issue of Playboy magazine.}

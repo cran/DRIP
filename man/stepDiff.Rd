@@ -36,11 +36,9 @@ stepDiff(image, bandwidth, degree = 1, blur = FALSE, plot = FALSE)
     \code{\link{roofDiff}}
 }
 \examples{
-data(sar) # SAR image is bundled with the package and it is a 
-          # standard test image in statistics literature.
 diff <- stepDiff(image = sar, bandwidth = 4, degree = 0)
 }
-
+\author{Yicheng Kang}
 \references{
 Kang, Y. and Qiu, P. (2014) "Jump Detection in Blurred Regression 
 Surfaces," \emph{Technometrics}, \bold{56}(4), 539 -- 550,

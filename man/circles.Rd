@@ -8,6 +8,7 @@
     observations are listed as a 256x256 matrix.}
 \usage{circles}
 \format{A matrix of 256x256 pixels.}
+\author{Yicheng Kang}
 \references{
     Qiu, P. (2005) \emph{Image Processing and Jump Regression
     Analysis}. New Jersey: Wiley.

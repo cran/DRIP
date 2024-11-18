@@ -1,0 +1,97 @@
+---
+title: "Discontinuous Regression and Image Processing"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Discontinuous Regression and Image Processing}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+# Jump Regression Models
+Observed digital images often contain noise which could be incurred from different sources. For example, noise can come from the digitization process described above. Noise can also be produced in poor lighting situations where images are taken. Assuming that the noise is additive to its true intensity values, an image can be described by the following two-dimensional regression model:
+$$
+  Z_{i, j} = f(x_i, y_j) + \varepsilon_{i, j}, \; (x_i, y_j) \in \Omega, \; i = 1, \ldots, \; n_1, \; j = 1, \ldots, n_2,
+$$
+where  $f$ is the true image intensity function, $\varepsilon_{i, j}$ denotes the noise at the $(i, j)$-th pixel, $Z_{i,j}$ is the observed intensity value at the $(i, j)$-th pixel, and $\Omega$ is the design space. The image intensity function $f$ often has discontinuities. For instance, the boundary curves of objects in a photograph are positions where $f$ has jumps. Because our human-eye systems have evolved to make use of the boundary curves for recognizing objects, jumps in $f$ are important features of the image. In image processing, jump locations in $f$ are called *step edges*, and jump locations in the first-order derivatives of $f$ are called *roof edges*. Therefore, edge detection and edge-preserving image restoration in image processing are essentially the same tasks as jump detection and jump-preserving surface estimation in jump regression.
+
+# Package Overview
+The **DRIP** package provides functionality for three categories of image analysis problems: edge detection, edge-preserving noise removal and blind image deblurring. Edge detection is often used in image data compression. Noise removal and image deblurring are important for improving human and machine perception of the images. The package is designed for general image analysis without restrictions on the specific image type. To use **DRIP** in practice, the workflow often involves parameter tuning before model estimation.
+```{r setup}
+library(DRIP)
+```
+
+# Step Edge Detection
+The step edge detector in **DRIP** is implemented by the `stepEdge()` function. We apply it to the SAR image which is included in the package. The output of `stepEdge()` is a matrix of 0's and 1's. It is worth noting that the bandwidth is specified in terms of the number of pixels. Also, we have exchanged 0's and 1's in the visualization with the `image()` function in order to have the jump points shown in black. 
+```{r step, fig.width=6}
+stepedge <- stepEdge(image = sar, bandwidth = 10, thresh = 17, 
+                     degree = 1)
+par(mfrow = c(1, 2), mar = c(3, 1, 1, 1), xaxt = "n", yaxt = "n")
+image(sar, col = gray(c(0:255)/255))
+image(1 - stepedge, col = gray(c(0:255)/255))
+```
+
+Two parameters, bandwidth and threshold, need to be specified by the user. The `stepEdgeParSel()` function implements a bootstrap-based data-driven procedure that helps determine these two parameter values. In the following illustration with the SAR image, we provide two bandwidths and two thresholds and select the best combination using `stepEdgeParSel()`. Since this is a bootstrap procedure, the number of bootstrap samples needs to be given, and a random seed is required to ensure reproducibility. The function returns a matrix of $\widehat{d}_{KQ}$, an edge detection performance measure, for each combination. It also reports the selected bandwidth and threshold parameters associated with the smallest $\widehat{d}_{KQ}$ value. 
+```{r step-par}
+set.seed(24)
+parSel <- stepEdgeParSel(image = sar, bandwidth = c(9, 10), degree = 1, 
+                          thresh = c(17, 21), nboot = 10)
+print(parSel, type = "all")
+```
+Since the bandwidth specifies the neighborhood size for local smoothing, positive integers in the range of $[1, 20]$ are usually reasonable candidates. It is more difficult to obtain a preliminary range for reasonable threshold values. To handle this issue, one may use the `stepDiff()` function, which computes the edge detection criterion at each pixel. Since the number of edge pixels is small relative to the image resolution, upper percentiles provide good clues about reasonable values for the threshold parameter. 
+```{r step-threshold-range}
+diffllk <- stepDiff(image = sar, bandwidth = 10, degree = 1)
+quantile(c(diffllk), probs = c(0.75, 0.85, 0.95))
+```
+
+# Image Denoising
+The `threeStage()` function in the package implements a three-stage approach for image denoising. The detected step edges are supplied using the argument `edge1`. Notably, users can also input the detected roof edges using the argument `edge2`. The resulting estimator preserves both step and roof edges of the image. In cases where roof edge detection is deemed unnecessary, users can simply provide a matrix of zeros to `edge2`. The code below shows the estimated SAR image after applying `threeStage()`. It can be seen that the estimation preserves the discontinuities at places where edges have been successfully detected. At places where the edge detector fails to flag the edge points, the estimation still blurs the jumps. 
+```{r three-stage}
+fit <- threeStage(image = sar, bandwidth = 4, edge1 = stepedge, 
+                  edge2 = array(0, dim(sar)))
+par(mfrow = c(1, 1), mar = c(3, 1, 1, 1), xaxt = "n", yaxt = "n")
+image(fit, col = gray(c(0:255)/255))
+```
+
+This three-stage approach requires a bandwidth parameter. It can be selected by minimizing the leave-one-out cross validation score. The `threeStageParSel()` function implements the cross validation procedure.
+```{r}
+bw_3stage <- threeStageParSel(image = sar, bandwidth = 4:5, 
+                              edge1 = stepedge, 
+                              edge2 = array(0, dim(sar)))
+print(bw_3stage, type = "all")
+```
+
+# Blind Image Deblurring
+In addition to having noise, images may also have blur involved. For instance, in astronomical imaging, ground-based imaging systems are subject to blurring due to the rapidly changing index of refraction of the atmosphere. In photography, out-of-focus or camera shake often results in blurred images. In medical imaging, blurred x-rays or mammograms are almost inevitable because the medical imaging systems limit the intensity of the incident radiation in order to protect the patient's health. In the image processing literature, a commonly used model to describe the relationship between the original image and its observed but blurred version is
+$$
+  Z(x_i, y_j) = G\{f\}(x_i, y_j) + \varepsilon_{i, j}, 
+$$
+where $G\{f\}$ is the convolution between $g$ and $f$ defined by
+$$
+  G\{f\}(x,y) = g\otimes f(x, y) = \int\int_\Omega g(x-u,y-v; x, y) f(u,v)\; dudv.
+$$
+Here $g$ is called the point spread function. It describes how the original image is spatially degraded (i.e., blurred). In most references, it is further assumed that the blurring is location (or spatially) invariant. That is, $g(u, v;x, y)$ does not depend on $(x, y)$. Blind image deblurring is for estimating $f$ from $Z$ when the point spread function $g$ is not completely specified.
+
+The `jpex()` function implements a blind deblurring method using the jump-preserving extrapolation (JPEX) technique. Here we apply it to a blurry stop-sign image, which is shown below. The function returns a list of two: `deblurred`, the deblurred image, and `edge`, the detected blurry pixels. It can be seen that the JPEX method is able to deblur the image well. The arguments `alpha` and `sigma` specify the significance level and noise level, respectively. 
+```{r jpex, fig.width=6}
+deblur <- jpex(image = stopsign, bandwidth = 2, sigma = 0.00623, 
+               alpha = 0.001)
+names(deblur)
+par(mfrow = c(1, 2), mar = c(3, 1, 1, 1), xaxt = "n", yaxt = "n")
+image(stopsign, col = gray(c(0:255)/255))
+image(deblur$deblurred, col = gray(c(0:255)/255))
+```
+
+The `jpex()` function requires a bandwidth value and the noise level. Both can be determined by the `cv.jpex()` function. 
+```{r cv-jpex}
+cv.out <- cv.jpex(image = stopsign, bandwidths = c(2, 3), ncpus = 1)
+print(cv.out, type = "all")
+```
+
+
+

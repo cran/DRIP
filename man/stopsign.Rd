@@ -9,6 +9,7 @@
     has much blurring involved.}
 \usage{stopsign}
 \format{A matrix of 160x160 pixels.}
+\author{Yicheng Kang}
 \references{
 Kang, Y. (2020) ``Consistent Blind Image Deblurring Using
 Jump-Preserving Extrapolation'', \emph{Journal of Computational and

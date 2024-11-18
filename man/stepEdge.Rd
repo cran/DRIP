@@ -45,6 +45,7 @@ data(sar)
 edges <- stepEdge(image = sar, bandwidth = 4, degree = 0,
 thresh = 16)
 }
+\author{Yicheng Kang}
 \references{
 Kang, Y. and Qiu, P. (2014) "Jump Detection in Blurred Regression 
 Surfaces," \emph{Technometrics}, \bold{56}(4), 539 -- 550,
