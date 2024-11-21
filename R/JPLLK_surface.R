@@ -53,11 +53,16 @@ JPLLK_surface <- function(image, bandwidth, plot = FALSE){
       stop("image data must be a square matrix")
     if (!is.numeric(bandwidth))
       stop("bandwidth must be numeric")
+    if (min(bandwidth) < 1)
+      stop("bandwidth must be at least 1")
+    if (all(bandwidth > n1/3.0))
+      stop("all the bandwidths are greater than n/3")
 #     if (n1 + 2 * max(bandwidth) + 2 > 600)
 #       stop("some choice of bandwidth or the resolution of the
 # image is too large")
     n1 <- dim(image)[1]
     z <- matrix(as.double(image), ncol = n1)
+    bandwidth <- bandwidth[bandwidth <= n1/3.0]
     n_band <- length(bandwidth)
     out <- .Fortran(C_jp_llk_cv, n = as.integer(n1 - 1), obsImg = z,
                     nband = n_band, bandwidth = as.integer(bandwidth),

@@ -36,7 +36,7 @@ test_that("only accept S3 class JPLLK_Parameters", {
 test_that("An S3 class JPLLK_Parameters is returned", {
   fit <- JPLLK_surface(image = sar, bandwidth = c(3, 4), plot = FALSE)
   expect_identical(class(fit), "JPLLK_Parameters")
-  expect_no_error(parsel <- JPLLK_surface(image = matrix(0, 3, 3),
+  expect_no_error(parsel <- JPLLK_surface(image = matrix(0, 9, 9),
                                           bandwidth = 2, plot = TRUE))
 })
 
@@ -47,6 +47,10 @@ test_that("only accept proper input", {
                "image data must be a square matrix")
   expect_error(JPLLK_surface(image = matrix(1, 3, 3), bandwidth = "A"),
                "bandwidth must be numeric")
+  expect_error(JPLLK_surface(image = matrix(1, 3, 3), bandwidth = -1),
+               "bandwidth must be at least 1")
+  expect_error(JPLLK_surface(image = matrix(1, 3, 3), bandwidth = 3),
+               "all the bandwidths are greater than n/3")
 })
 
 print("This is the end of test-JPLLK_surface")

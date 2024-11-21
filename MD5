@@ -1,6 +1,6 @@
-f72ec7b8c4623e5e41761c9cbea065a3 *DESCRIPTION
+148784040811363221a1d245a8b882a9 *DESCRIPTION
 8cd18286330d85cb055f689826826e8f *NAMESPACE
-8220fc6cbaa04cd4d9d259fedaf872b0 *R/JPLLK_surface.R
+d3adf3b5ee4c6068393fc24a0d2a3357 *R/JPLLK_surface.R
 a9399c7eb0eff5bb10e4b69af780ac10 *R/cv.jpex.R
 329a3a9e0e80203b19515475e223e24d *R/dKQ.R
 b7e4bba83e5d39b0605c3f12d881576c *R/diffLC2K.R
@@ -119,7 +119,7 @@ fba9b8268be2047b37fdfee7d39f8617 *src/lck_diff.f90
 e0d0357cd7baa494dbd3f5c3dd209a56 *src/roofEdgeParSel_denoise.f90
 e2a22c528f8f3604f361b8e6dd20b2b6 *src/surfest.f90
 7c3c1173620920d8b5602950e022b292 *tests/testthat.R
-f99d7c21bd3a44fa60bddce6614104ae *tests/testthat/test-JPLLK_surface.R
+11ca9e3e081a31513b8c6b132bc981b9 *tests/testthat/test-JPLLK_surface.R
 4e99c92e705a902b22caee7effe25a26 *tests/testthat/test-cv.jpex.R
 01405424c7863f2434090c360f77be24 *tests/testthat/test-dKQ.R
 62fcbc3d921153b89328928fb5ab76c9 *tests/testthat/test-diffLC2K.R

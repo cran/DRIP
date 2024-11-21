@@ -1,6 +1,6 @@
 Package: DRIP
 License: GPL (>= 2)
-Version: 2.2
+Version: 2.3
 Description: A collection of functions that perform jump regression
 	     and image analysis such as denoising, deblurring and
 	     jump detection. The implemented methods are based on
@@ -29,6 +29,6 @@ BugReports: https://github.com/kangy10/DRIP/issues
 Suggests: knitr, rmarkdown, testthat (>= 3.0.0)
 Config/testthat/edition: 3
 VignetteBuilder: knitr
-Packaged: 2024-11-18 17:30:02 UTC; yicheng
+Packaged: 2024-11-20 17:06:20 UTC; yicheng
 Repository: CRAN
-Date/Publication: 2024-11-18 20:20:02 UTC
+Date/Publication: 2024-11-21 21:20:06 UTC
