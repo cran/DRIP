@@ -14,26 +14,25 @@ par(mfrow = c(1, 2), mar = c(3, 1, 1, 1), xaxt = "n", yaxt = "n")
 image(sar, col = gray(c(0:255)/255))
 image(1 - stepedge, col = gray(c(0:255)/255))
 
+## ----step-par-pilot, fig.width=7----------------------------------------------
+edgeParSelPilot(sar, edgeType = "step", degree = 1, bandwidth = c(6, 8, 10), probs = c(0.75, 0.85, 0.95))
+
 ## ----step-par-----------------------------------------------------------------
 set.seed(24)
 parSel <- stepEdgeParSel(image = sar, bandwidth = c(9, 10), degree = 1, 
                           thresh = c(17, 21), nboot = 10)
 print(parSel, type = "all")
 
-## ----step-threshold-range-----------------------------------------------------
-diffllk <- stepDiff(image = sar, bandwidth = 10, degree = 1)
-quantile(c(diffllk), probs = c(0.75, 0.85, 0.95))
-
 ## ----three-stage--------------------------------------------------------------
-fit <- threeStage(image = sar, bandwidth = 4, edge1 = stepedge, 
-                  edge2 = array(0, dim(sar)))
+fit <- restore3Stage(image = sar, bandwidth = 4, step_edge = stepedge, 
+                  roof_edge = array(0, dim(sar)))
 par(mfrow = c(1, 1), mar = c(3, 1, 1, 1), xaxt = "n", yaxt = "n")
 image(fit, col = gray(c(0:255)/255))
 
 ## -----------------------------------------------------------------------------
-bw_3stage <- threeStageParSel(image = sar, bandwidth = 4:5, 
-                              edge1 = stepedge, 
-                              edge2 = array(0, dim(sar)))
+bw_3stage <- restore3StageParSel(image = sar, bandwidth = 4:5, 
+                              step_edge = stepedge, 
+                              roof_edge = array(0, dim(sar)))
 print(bw_3stage, type = "all")
 
 ## ----jpex, fig.width=6--------------------------------------------------------

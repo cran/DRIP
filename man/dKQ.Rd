@@ -4,10 +4,10 @@
 \description{
    Compute the dissimilarity measure between two sets of edge pixels.
    It is used as a performance measure for step or roof edge  detectors.}
-\usage{dKQ(edge1, edge2)}
+\usage{dKQ(set1, set2)}
 \arguments{
-  \item{edge1}{One set of pixels.}
-  \item{edge2}{The other set of pixels.}
+  \item{set1}{One set of pixels.}
+  \item{set2}{The other set of pixels.}
 }
 \value{Value of the \eqn{d_{KQ}}}
 \details{

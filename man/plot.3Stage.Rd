@@ -20,7 +20,7 @@
     A plot of the (modified) cross-validation scores is produced. 
 }
 \seealso{
-    \code{\link{threeStageParSel}}, \code{\link{print.Three_Stage_Parameters}},
+    \code{\link{restore3StageParSel}}, \code{\link{print.Three_Stage_Parameters}},
     \code{\link{summary.Three_Stage_Parameters}}
 }
 \examples{
@@ -30,7 +30,7 @@ roof.edges <- roofEdge(peppers, bandwidth = 6, thresh = 3000,
     edge1 = step.edges) 
 set.seed(24)
 # Time consuming
-parSel <- threeStageParSel(image = peppers, edge1 = step.edges,
+parSel <- restore3StageParSel(image = peppers, edge1 = step.edges,
     edge2 = roof.edges, bandwidth = 3:4, nboot = 1, blur = TRUE)
 plot(parSel)
 }

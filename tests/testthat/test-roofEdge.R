@@ -13,13 +13,13 @@ test_that("only accept proper input", {
                         edge1 = matrix(0, 2, 2)),
                "threshold  must be a positive number")
   expect_error(roofEdge(image = matrix(0, 3, 3), bandwidth = 2, thresh = 17,
-                        edge1 = 1:4), "edge1 must be a square matrix")
+                        edge1 = 1:4), "step_edge must be a square matrix")
   expect_error(roofEdge(image = matrix(0, 3, 3), bandwidth = 2, thresh = 17,
                         edge1 = matrix(1.2, 3, 3)),
-               "edge1's must be either 0 or 1")
+               "step_edge's must be either 0 or 1")
   expect_error(roofEdge(image = matrix(0, 3, 3), bandwidth = 2, thresh = 17,
                         edge1 = matrix(0, 2, 2)),
-               "edge1 and image are not of the same size")
+               "step_edge and image are not of the same size")
   img <- matrix(0, 9, 9)
   img[1:4, 1:4] <- 1
   expect_no_error(roofEdge(image = img, bandwidth = 2, thresh = 0.1,

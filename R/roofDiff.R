@@ -1,5 +1,5 @@
 # This is R source code for function 'roofDiff' in the R
-# package 'image'.
+# package 'DRIP'.
 # Creator: Yicheng Kang
 # Date: May 6, 2013
 

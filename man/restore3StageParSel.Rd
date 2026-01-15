@@ -1,12 +1,13 @@
-\name{threeStageParSel}
-\alias{threeStageParSel}
+\name{restore3StageParSel}
+\alias{restore3StageParSel}
 \title{Parameter Selection in Three-Stage Image Restoration}
 \description{
     Select the bandwidth value for the image restoration method
-    implemented in the function \code{\link{threeStage}}
+    implemented in the function \code{\link{restore3Stage}}
 }
 \usage{
-threeStageParSel(image, bandwidth, edge1, edge2, nboot,
+restore3StageParSel(image, bandwidth, step_edge = NULL,
+roof_edge = NULL, edge1 = NULL, edge2 = NULL, nboot,
     blur = FALSE)
 }
 \arguments{
@@ -14,10 +15,12 @@ threeStageParSel(image, bandwidth, edge1, edge2, nboot,
     \item{bandwidth}{Bandwidth values to be chosen from. Each of
     these values need to be an positive integer specifying the
     number of pixels to use in the local smoothing.}
-    \item{edge1}{A matrix of 0 and 1 representing the detected
-    step edge pixels.}
-    \item{edge2}{A matrix of 0 and 1 representing the detected
-    roof/valley edge pixels.}
+    \item{step_edge}{A matrix of 0 and 1 representing the detected
+    step edge pixels}
+    \item{roof_edge}{A matrix of 0 and 1 representing the detected
+    roof/valley edge pixels}
+    \item{edge1}{Deprecated. Use \code{step_edge} instead.}
+    \item{edge2}{Deprecated. Use \code{roof_edge} instead.}
     \item{nboot}{Required when \code{blur} is TRUE. Unused when
     \code{blur} is FALSE. It must be a positive integer
     specifying the number of bootstraps to perform. See
@@ -35,11 +38,11 @@ threeStageParSel(image, bandwidth, edge1, edge2, nboot,
 \dontrun{
 step.edges <- stepEdge(peppers, bandwidth = 9, thresh = 17) 
 roof.edges <- roofEdge(peppers, bandwidth = 6, thresh = 3000,
-    edge1 = step.edges) 
+    step_edge = step.edges) 
 set.seed(24)
 # Time consuming
-parSel <- threeStageParSel(image = peppers, edge1 = step.edges,
-    edge2 = roof.edges, bandwidth = 3:4, nboot = 1, blur = TRUE) 
+parSel <- restore3StageParSel(image = peppers, step_edge = step.edges,
+    roof_edge = roof.edges, bandwidth = 3:4, nboot = 1, blur = TRUE) 
 }
 }
 \author{Yicheng Kang}

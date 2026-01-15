@@ -1,19 +1,19 @@
-# This is R source code for function 'modify1' in the R
+# This is R source code for function 'edgeModify1' in the R
 # package 'image'.
 # Creator: Yicheng Kang
 # Date: April 30, 2013
 
-modify1 <- function(bandwidth, image, edge, plot = FALSE){
+edgeModify1 <- function(bandwidth, image, edge, plot = FALSE){
   obsImg <- image
   if (!is.matrix(obsImg) || dim(obsImg)[1] != dim(obsImg)[2])
-    stop('obsImg must be a square matrix') 
+    stop('obsImg must be a square matrix')
   if (!is.matrix(edge) || dim(edge)[1] != dim(edge)[2])
     stop('edge must be a square matrix')
   if (length(edge[(edge != 0) & (edge != 1)]) >= 1)
     stop('edge can only have entry equal to 0 or 1')
   if (dim(obsImg)[1] != dim(edge)[1])
     stop('obsImg and edge must have the same size')
-  if (!is.numeric(bandwidth) || length(bandwidth) > 1 || 
+  if (!is.numeric(bandwidth) || length(bandwidth) > 1 ||
       as.integer(bandwidth) < 1)
     stop('bandwidth must be a positive integer')
   n1 <- dim(edge)[1]
@@ -28,7 +28,7 @@ modify1 <- function(bandwidth, image, edge, plot = FALSE){
   edge.ext <- array(as.integer(0), c(n1 + 2 * k1, n1 + 2 * k1))
   edge.ext[(k1 + 1):(k1 + n1), (k1 + 1):(k1 + n1)] <- edge
   out <- .Fortran(C_modify1, n = as.integer(n1 - 1), k =
-                    itemp, bound = k1, z = ext$z1, edge = edge.ext)  
+                    itemp, bound = k1, z = ext$z1, edge = edge.ext)
   edge1 <- out$edge[(k1 + 1):(k1 + n1), (k1 + 1) : (k1 + n1)]
   if (plot == FALSE){
     return(edge1)

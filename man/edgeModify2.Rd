@@ -1,14 +1,14 @@
-\name{modify2}
-\alias{modify2}
+\name{edgeModify2}
+\alias{edgeModify2}
 \title{Type-2 Modification Procedure}
 \description{
    Delete deceptive edge pixels that are scattered in the design space.
 }
-\usage{modify2(bandwidth, edge, plot)}
+\usage{edgeModify2(bandwidth, edge, plot)}
 \arguments{
     \item{bandwidth}{A positive integer that specifies the number of
     pixels to use in the local smoothing.}
-    \item{edge}{A matrix of 0 and 1 representing the detected edge 
+    \item{edge}{A matrix of 0 and 1 representing the detected edge
     pixels.}
     \item{plot}{If plot = TRUE, images of the detected edges before
     and after the modification are plotted.}
@@ -26,11 +26,11 @@
     space. This modification procedure deletes scattered edge pixel candidates.
 }
 \seealso{
-    \code{\link{modify1}}
+    \code{\link{edgeModify1}}
 }
 \examples{
 edge <- stepEdge(sar, bandwidth = 4, thresh = 20, degree = 0)
-out <- modify2(4, edge)
+out <- edgeModify2(4, edge)
 }
 \author{Yicheng Kang}
 \references{

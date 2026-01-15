@@ -1,4 +1,4 @@
-# This is R source code for function 'threeStageParSel', in the
+# This is R source code for function 'restore3StageParSel', in the
 # R package "image".
 # Date: Aug 30, 2015
 # Creator: Yicheng Kang
@@ -47,10 +47,17 @@ plot.Three_Stage_Parameters <- function(x, ...) {
                ylab = "(MSE)CV Scores")
 }
 
-threeStageParSel <- function(image, bandwidth, edge1, edge2, nboot,
-                             blur = FALSE){
-  if (!is.matrix(image) || !is.matrix(edge1) || !is.matrix(edge2)) {
-    stop("image, edge1 and edge2 must be a matrix")
+restore3StageParSel <- function(image, bandwidth, step_edge = NULL,
+                                roof_edge = NULL, edge1 = NULL, edge2 = NULL,
+                                nboot, blur = FALSE){
+  if (!is.null(edge1)) {
+    step_edge <- edge1
+  }
+  if (!is.null(edge2)) {
+    roof_edge <- edge2
+  }
+  if (!is.matrix(image) || !is.matrix(step_edge) || !is.matrix(roof_edge)) {
+    stop("image, step_edge and roof_edge must be a matrix")
   } else {
     n1 <- dim(image)[1]
     n2 <- dim(image)[2]
@@ -64,24 +71,24 @@ threeStageParSel <- function(image, bandwidth, edge1, edge2, nboot,
 # image is too large")
   n1 <- dim(image)[1]
   z <- matrix(as.double(image), ncol = n1)
-  if (nrow(edge1) != n1 || ncol(edge1) != n1) {
-    stop("different size in edge1 and image")
+  if (nrow(step_edge) != n1 || ncol(step_edge) != n1) {
+    stop("different size in step_edge and image")
   }
-  if (nrow(edge2) != n1 || ncol(edge2) != n1) {
-    stop("different size in edge2 and image")
+  if (nrow(roof_edge) != n1 || ncol(roof_edge) != n1) {
+    stop("different size in roof_edge and image")
   }
-  if(!all(edge1 == 0 | edge1 == 1))
-    stop("edge1 must be either 0 or 1.")
-  if(!all(edge2 == 0 | edge2 == 1))
-    stop("edge2 must be either 0 or 1.")
-  edge1 <- matrix(as.integer(edge1), ncol = n1)
-  edge2 <- matrix(as.integer(edge2), ncol = n1)
+  if(!all(step_edge == 0 | step_edge == 1))
+    stop("step_edge must be either 0 or 1.")
+  if(!all(roof_edge == 0 | roof_edge == 1))
+    stop("roof_edge must be either 0 or 1.")
+  step_edge <- matrix(as.integer(step_edge), ncol = n1)
+  roof_edge <- matrix(as.integer(roof_edge), ncol = n1)
   n_band <- length(bandwidth)
   if (blur == FALSE) {
     out <- .Fortran(C_denoise_3stage_bandwidth, n = as.integer(n1 - 1),
                     obsImg = z, nband = n_band,
-                    bandwidth = as.integer(bandwidth), edge1 = edge1,
-                    edge2 = edge2, cv = rep(as.double(0), n_band))
+                    bandwidth = as.integer(bandwidth), edge1 = step_edge,
+                    edge2 = roof_edge, cv = rep(as.double(0), n_band))
     k.cv <- out$cv
     band_sel <- mean(bandwidth[k.cv ==  min(k.cv)])
     out.mat <- matrix(0, ncol = n_band, nrow = 1)
@@ -98,8 +105,8 @@ threeStageParSel <- function(image, bandwidth, edge1, edge2, nboot,
     n_boot <- as.integer(nboot)
     out <- .Fortran(C_deblur_3stage_bandwidth, n = as.integer(n1 - 1),
                     obsImg = z, nband = n_band,
-                    bandwidth = as.integer(bandwidth), edge1 = edge1,
-                    edge2 = edge2, nboot = n_boot,
+                    bandwidth = as.integer(bandwidth), edge1 = step_edge,
+                    edge2 = roof_edge, nboot = n_boot,
                     msecv = rep(as.double(0), n_band))
     k.msecv <- out$msecv
     band_sel <- mean(bandwidth[k.msecv ==  min(k.msecv)])

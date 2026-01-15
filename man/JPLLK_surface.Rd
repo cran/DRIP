@@ -33,7 +33,7 @@ JPLLK_surface(image, bandwidth, plot = FALSE)
     pixel.
 }
 \seealso{
-    \code{\link{threeStage}}, \code{\link{surfaceCluster}}
+    \code{\link{restore3Stage}}, \code{\link{surfaceCluster}}
 }
 \examples{
 fit <- JPLLK_surface(image = sar, bandwidth = c(3, 4))

@@ -6,7 +6,8 @@
     quadratic kernel smoothing.
 }
 \usage{
-roofEdge(image, bandwidth, thresh, edge1, blur, plot)
+roofEdge(image, bandwidth, thresh, step_edge = NULL, edge1 = NULL,
+blur, plot)
 }
 \arguments{
     \item{image}{A square matrix, no missing value allowed.}
@@ -14,9 +15,9 @@ roofEdge(image, bandwidth, thresh, edge1, blur, plot)
     of pixels to use in the local smoothing.}
     \item{thresh}{Threshold value to use in the edge detection
     criterion.}
-    \item{edge1}{A square matrix representing the image's step
-    edges. The function excludes step edges when detects roof
-    edges.}
+    \item{step_edge}{A matrix of 0 and 1 representing the detected
+    step edge pixels}
+    \item{edge1}{Deprecated. Use \code{step_edge} instead.}
     \item{blur}{If blur = TRUE, besides the conventional 2-D
     kernel function, a univariate kernel function is used
     in the local smoothing to address the issue of blur.}
@@ -48,7 +49,7 @@ roofEdge(image, bandwidth, thresh, edge1, blur, plot)
 \dontrun{
 step.edges <- stepEdge(peppers, bandwidth = 6, thresh = 25, degree = 1)
 roof.edges <- roofEdge(image = peppers, bandwidth = 9, thresh = 3000,
-    edge1 = step.edges, blur = FALSE, plot = FALSE) # Time consuming
+    step_edge = step.edges, blur = FALSE, plot = FALSE) # Time consuming
 edges <- step.edges + roof.edges     
 par(mfrow = c(2, 2))
 image(1 - step.edges, col = gray(0:1))

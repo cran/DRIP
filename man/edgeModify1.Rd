@@ -1,17 +1,17 @@
-\name{modify1}
-\alias{modify1}
+\name{edgeModify1}
+\alias{edgeModify1}
 \title{Type-1 Modification Procedure}
 \description{
    Modify detected edges to make them thin.
 }
 \usage{
-modify1(bandwidth, image, edge, plot)
+edgeModify1(bandwidth, image, edge, plot)
 }
 \arguments{
     \item{image}{A matrix that represents the image.}
     \item{bandwidth}{A positive integer that specifies the number of
     pixels to use in the local smoothing.}
-    \item{edge}{A matrix of 0 and 1 represents detected edge 
+    \item{edge}{A matrix of 0 and 1 represents detected edge
     pixels. }
     \item{plot}{If plot = TRUE, images of detected edges before
     and after the modification are plotted.}
@@ -30,11 +30,11 @@ modify1(bandwidth, image, edge, plot)
     thin.
 }
 \seealso{
-    \code{\link{modify2}}
+    \code{\link{edgeModify2}}
 }
 \examples{
 edge <- stepEdge(sar, bandwidth = 4, thresh = 20, degree = 0)
-out <- modify1(4, sar, edge)
+out <- edgeModify1(4, sar, edge)
 }
 \author{Yicheng Kang}
 \references{

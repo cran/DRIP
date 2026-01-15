@@ -1,9 +1,9 @@
-# This is R source code for function 'modify2' in the R
+# This is R source code for function 'edgeModify2' in the R
 # package 'image'.
 # Creator: Yicheng Kang
 # Date: April 29, 2013
 
-modify2 <- function(bandwidth, edge, plot = FALSE){
+edgeModify2 <- function(bandwidth, edge, plot = FALSE){
   if (!is.matrix(edge) || dim(edge)[1] != dim(edge)[2])
     stop('edge must be a square matrix')
   if (length(edge[(edge != 0) & (edge != 1)]) >= 1)

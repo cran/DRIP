@@ -49,7 +49,7 @@ surfaceCluster(image, bandwidth, sig.level, sigma, phi0,
     the estimated absolute mean of the error distribution.
 }
 \seealso{
-    \code{\link{JPLLK_surface}}, \code{\link{threeStage}}
+    \code{\link{JPLLK_surface}}, \code{\link{restore3Stage}}
 }
 \examples{ 
 fit <- surfaceCluster(image = brain, bandwidth = 4,

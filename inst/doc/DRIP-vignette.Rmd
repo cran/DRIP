@@ -36,33 +36,33 @@ image(sar, col = gray(c(0:255)/255))
 image(1 - stepedge, col = gray(c(0:255)/255))
 ```
 
-Two parameters, bandwidth and threshold, need to be specified by the user. The `stepEdgeParSel()` function implements a bootstrap-based data-driven procedure that helps determine these two parameter values. In the following illustration with the SAR image, we provide two bandwidths and two thresholds and select the best combination using `stepEdgeParSel()`. Since this is a bootstrap procedure, the number of bootstrap samples needs to be given, and a random seed is required to ensure reproducibility. The function returns a matrix of $\widehat{d}_{KQ}$, an edge detection performance measure, for each combination. It also reports the selected bandwidth and threshold parameters associated with the smallest $\widehat{d}_{KQ}$ value. 
+Two parameters, bandwidth and threshold, need to be specified by the user. **DRIP** has two functions for this purpose. The first is `edgeParSelPilot()`. Users can specify several preliminary bandwidth values. Since the bandwidth specifies the neighborhood size for local smoothing, positive integers in the range of $[1, 20]$ are usually reasonable candidates. The `edgeParSelPilot()` function would plot the image of the edge detection statistics for each given bandwidth. Users can narrow down the choices based on the visual impression. In addition, the function outputs a few upper quantiles of the edge detection statistics for each bandwidth. Those quantiles offer clues to what reasonable threshold values can be, as edges are usually sparse in an image. In the following illustration with the SAR image, we provide three bandwidths and three probabilities to `edgeParSelPilot()`.
+```{r step-par-pilot, fig.width=7}
+edgeParSelPilot(sar, edgeType = "step", degree = 1, bandwidth = c(6, 8, 10), probs = c(0.75, 0.85, 0.95))
+```
+
+Bandwidth values around 10 seem reasonable as the visualization is less noisy. The quantiles suggest that the threshold should be around 20. Next, users can use the second function, `stepEdgeParSel()`, to finalize the parameter choice. The `stepEdgeParSel()` function implements a bootstrap-based data-driven procedure that estimates the edge detection performance for each combination of the bandwidth and threshold.  Since this is a bootstrap procedure, the number of bootstrap samples needs to be given, and a random seed is required to ensure reproducibility. The function returns a matrix of $\widehat{d}_{KQ}$, an edge detection performance measure. It also reports the selected bandwidth and threshold parameters associated with the smallest $\widehat{d}_{KQ}$ value. 
 ```{r step-par}
 set.seed(24)
 parSel <- stepEdgeParSel(image = sar, bandwidth = c(9, 10), degree = 1, 
                           thresh = c(17, 21), nboot = 10)
 print(parSel, type = "all")
 ```
-Since the bandwidth specifies the neighborhood size for local smoothing, positive integers in the range of $[1, 20]$ are usually reasonable candidates. It is more difficult to obtain a preliminary range for reasonable threshold values. To handle this issue, one may use the `stepDiff()` function, which computes the edge detection criterion at each pixel. Since the number of edge pixels is small relative to the image resolution, upper percentiles provide good clues about reasonable values for the threshold parameter. 
-```{r step-threshold-range}
-diffllk <- stepDiff(image = sar, bandwidth = 10, degree = 1)
-quantile(c(diffllk), probs = c(0.75, 0.85, 0.95))
-```
 
 # Image Denoising
-The `threeStage()` function in the package implements a three-stage approach for image denoising. The detected step edges are supplied using the argument `edge1`. Notably, users can also input the detected roof edges using the argument `edge2`. The resulting estimator preserves both step and roof edges of the image. In cases where roof edge detection is deemed unnecessary, users can simply provide a matrix of zeros to `edge2`. The code below shows the estimated SAR image after applying `threeStage()`. It can be seen that the estimation preserves the discontinuities at places where edges have been successfully detected. At places where the edge detector fails to flag the edge points, the estimation still blurs the jumps. 
+The `restore3Stage()` function in the package implements a three-stage approach for image denoising. The detected step edges are supplied using the argument `edge1`. Notably, users can also input the detected roof edges using the argument `edge2`. The resulting estimator preserves both step and roof edges of the image. In cases where roof edge detection is deemed unnecessary, users can simply provide a matrix of zeros to `edge2`. The code below shows the estimated SAR image after applying `restore3Stage()`. It can be seen that the estimation preserves the discontinuities at places where edges have been successfully detected. At places where the edge detector fails to flag the edge points, the estimation still blurs the jumps. 
 ```{r three-stage}
-fit <- threeStage(image = sar, bandwidth = 4, edge1 = stepedge, 
-                  edge2 = array(0, dim(sar)))
+fit <- restore3Stage(image = sar, bandwidth = 4, step_edge = stepedge, 
+                  roof_edge = array(0, dim(sar)))
 par(mfrow = c(1, 1), mar = c(3, 1, 1, 1), xaxt = "n", yaxt = "n")
 image(fit, col = gray(c(0:255)/255))
 ```
 
-This three-stage approach requires a bandwidth parameter. It can be selected by minimizing the leave-one-out cross validation score. The `threeStageParSel()` function implements the cross validation procedure.
+This three-stage approach requires a bandwidth parameter. It can be selected by minimizing the leave-one-out cross validation score. The `restore3StageParSel()` function implements the cross validation procedure.
 ```{r}
-bw_3stage <- threeStageParSel(image = sar, bandwidth = 4:5, 
-                              edge1 = stepedge, 
-                              edge2 = array(0, dim(sar)))
+bw_3stage <- restore3StageParSel(image = sar, bandwidth = 4:5, 
+                              step_edge = stepedge, 
+                              roof_edge = array(0, dim(sar)))
 print(bw_3stage, type = "all")
 ```
 
