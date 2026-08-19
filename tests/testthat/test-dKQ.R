@@ -20,4 +20,13 @@ test_that("return a numeric", {
                             matrix(c(1, 1, 0, 0), 2, 2))))
 })
 
+test_that("output test -- returns 0 if the two edge matrices are the same", {
+  edgemat1 <- matrix(0, 100, 100)
+  edgemat1[50, ] <- 1
+  edgemat2 <- edgemat1
+  res <- dKQ(edgemat1, edgemat2)
+  expect_equal(res, 0)
+
+})
+
 print("This is the end of test-dKQ")

@@ -3,10 +3,6 @@
 # Date: April 25, 2013
 # Creator: Yicheng Kang
 
-# S3 Class
-foo <- list(fitted = matrix(0.0, nrow = 2, ncol = 0), bandwidth = 3.0, resid
-             = matrix(0.0, nrow = 2, ncol = 0), sigma = 0.0)
-class(foo) <- "JPLLK_Parameters"
 
 # The print method for S3 class
 

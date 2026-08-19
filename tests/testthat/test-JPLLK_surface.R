@@ -53,4 +53,16 @@ test_that("only accept proper input", {
                "all the bandwidths are greater than n/3")
 })
 
+test_that("output test -- noise removal", {
+  true_img <- matrix(0, 100, 100)
+  true_img[50:100, ] <- 1
+  image(true_img, col = gray.colors(256))
+  set.seed(2026)
+  obs_img <- true_img + matrix(rnorm(100 * 100, sd = 0.1), 100, 100)
+  image(obs_img, col = gray.colors(256))
+  out <- JPLLK_surface(image = obs_img, bandwidth = 2:5)
+  image(out$fitted, col = gray.colors(256))
+  expect_lte(mean((out$fitted - true_img)^2), mean((obs_img - true_img)^2)) # expect noise removal in terms of MSE
+})
+
 print("This is the end of test-JPLLK_surface")

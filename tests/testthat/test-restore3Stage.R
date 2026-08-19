@@ -52,4 +52,20 @@ test_that("edges and image are of the same size", {
                "different size in roof_edge and image")
 })
 
+test_that("output test -- noise removal", {
+  true_img <- matrix(0, 100, 100)
+  true_img[50:100, ] <- 1
+  true_edge <- matrix(0, 100, 100)
+  true_edge[50, ] <- 1
+  image(true_img, col = gray.colors(256))
+  image(true_edge, col = gray.colors(256))
+  set.seed(2026)
+  obs_img <- true_img + matrix(rnorm(100 * 100, sd = 0.1), 100, 100)
+  image(obs_img, col = gray.colors(256))
+  out <- restore3Stage(image = obs_img, bandwidth = 3, step_edge = true_edge, roof_edge = matrix(0, 100, 100))
+  image(out, col = gray.colors(256))
+  expect_lte(mean((out - true_img)^2), mean((obs_img - true_img)^2)) # expect noise removal in terms of MSE
+})
+
+
 print("This is the end of test-restore3Stage")

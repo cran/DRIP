@@ -34,4 +34,15 @@ test_that("only accept proper input", {
                                  blur = TRUE, plot = TRUE))
 })
 
+test_that("output test -- noise removal as expected", {
+  true_img <- matrix(0, 100, 100)
+  true_img[50:100, ] <- 1
+  image(true_img, col = gray.colors(256))
+  set.seed(2026)
+  obs_img <- true_img + matrix(rnorm(100 * 100, sd = 0.1), 100, 100)
+  image(obs_img, col = gray.colors(256))
+  res <- surfaceCluster(image = obs_img, bandwidth = 3, sig.level = 0.95, sigma = 0.1, plot = TRUE)
+  expect_lte(mean((res$estImg - true_img)^2), mean((obs_img - true_img)^2)) # reduces the noise in observed image
+})
+
 print("This is the end of test-surfaceCluster")
